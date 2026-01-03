@@ -1,6 +1,6 @@
 set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
 cmake_minimum_required(VERSION 3.50)
-project(YOUR_PROJECT_NAME_HERE LANGUAGES C CXX)
+project(Tosser_the_Clown LANGUAGES C CXX)
 
 include(FetchContent)
 
