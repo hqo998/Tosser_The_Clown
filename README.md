@@ -1,10 +1,10 @@
 <div align="center">
 
-# Game Title
+# Tosser the Clown
 
 ---
 
-Put a short description here of the game
+Tosser has made the crowd upset! Defend yourself from the tomatoes with your arsenal of clown props!
 </div>
 
 ### Using Github Actions
