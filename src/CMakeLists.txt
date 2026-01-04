@@ -1,5 +1,7 @@
 target_sources(${PROJECT_NAME} PRIVATE
-    main.cpp
+    game.cpp
+    SpriteControl/SpriteController.cpp
+    DisplayBridge/DisplayBridge.cpp
 )
 
 

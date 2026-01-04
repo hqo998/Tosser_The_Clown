@@ -1,7 +1,5 @@
 #include "raylib.h"
-#include <cmath>
-
-
+#include "SpriteControl/SpriteController.hpp"
 
 int main()
 {
@@ -13,18 +11,16 @@ int main()
 
     // SetConfigFlags(FLAG_MSAA_4X_HINT);
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    
+
 
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
     // ToggleBorderlessWindowed();
     SetTargetFPS(30);
-    SetWindowMinSize(500, 500);  
+    SetWindowMinSize(300, 300);
 
 
     // load image
     Texture2D texture = LoadTexture("resources/tmp/coluredCircles.png");
-    GenTextureMipmaps(&texture);
-    SetTextureFilter(texture, TEXTURE_FILTER_TRILINEAR);
 
     // base width
     const float baseWidth = 500.0f;
