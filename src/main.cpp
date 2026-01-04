@@ -1,6 +1,8 @@
 #include "raylib.h"
 #include <cmath>
 
+
+
 int main()
 {
     int screenWidth{500};
@@ -9,22 +11,26 @@ int main()
     const int gameWidth = 2560;    // Internal Render (720p
     const int gameHeight = 1440;
 
-    SetConfigFlags(FLAG_MSAA_4X_HINT);
+    // SetConfigFlags(FLAG_MSAA_4X_HINT);
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    
 
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
     // ToggleBorderlessWindowed();
     SetTargetFPS(30);
+    SetWindowMinSize(500, 500);  
 
 
     // load image
     Texture2D texture = LoadTexture("resources/tmp/coluredCircles.png");
+    GenTextureMipmaps(&texture);
+    SetTextureFilter(texture, TEXTURE_FILTER_TRILINEAR);
 
     // base width
     const float baseWidth = 500.0f;
 
     RenderTexture2D target = LoadRenderTexture(gameWidth, gameHeight);
-    SetTextureFilter(target.texture, TEXTURE_FILTER_ANISOTROPIC_8X); // Smooth scaling
+    SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR); // Smooth scaling
 
     while (!WindowShouldClose())
     {
@@ -55,7 +61,7 @@ int main()
         EndTextureMode();
 
         BeginDrawing();
-            ClearBackground(BLACK); // Background if aspect ratios don't match
+            ClearBackground(RAYWHITE); // Background if aspect ratios don't match
 
             // Define source (720p) and destination rectangles with offset to make sure the target is always centred.
             Rectangle sourceRecTarget = { 0.0f, 0.0f, (float)target.texture.width, (float)-(target.texture.height) };
@@ -69,7 +75,7 @@ int main()
 
             DrawTexturePro(target.texture, sourceRecTarget, destRecTarget, originTarget, 0.0f, WHITE);
 
-            DrawText(TextFormat("Offset: %f", centredOriginOffset), 0, 40, 20, GREEN);
+            DrawText(TextFormat("Centre X Offset: %f", centredOriginOffset), 10, 40, 20, GREEN);
             DrawFPS(10, 10);
         EndDrawing();
     }
