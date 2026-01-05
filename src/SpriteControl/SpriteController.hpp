@@ -30,7 +30,7 @@ public:
     // variables
     Vector2 position;
     Vector2 scale;
-    
+
 
     // functions
     SpriteController();

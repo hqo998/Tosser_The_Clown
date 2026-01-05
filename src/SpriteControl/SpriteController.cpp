@@ -2,6 +2,9 @@
 
 #include "raylib.h"
 
+
+// use class heritance for other sprites as this as parent.
+
 SpriteController::SpriteController()
 {
 }

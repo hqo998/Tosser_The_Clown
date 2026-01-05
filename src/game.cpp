@@ -1,5 +1,4 @@
 #include "raylib.h"
-#include "SpriteControl/SpriteController.hpp"
 
 int main()
 {
