@@ -5,32 +5,46 @@
 enum bridgeMode
 {
     STRETCH_TO_SCREEN,
-    FIT_TO_SCREEN,
+    CENTRE_TO_SCREEN,
+    SCALE_HEIGHT_CENTRE_TO_SCREEN,
+    SCALE_MAINTAIN_SCREEN,
 };
 
 class DisplayBridge
 {
 public:
     // variables
-    int renderWidth {};
-    int renderHeight {};
+    float canvasWidth {};
+    float canvasHeight {};
 
-    int displayWidth {};
-    int displayHeight {};
+    float displayWidth {};
+    float displayHeight {};
 
     // functions
-    DisplayBridge(int renWidth, int renHeight, int dispWidth, int dispHeight);
+    DisplayBridge(float canvasWidth, float canvasHeight, float dispWidth, float dispHeight);
+    DisplayBridge(float canvasWidth, float canvasHeight);
 
-    void TexFilter(TextureFilter filterMode);
+    DisplayBridge(DisplayBridge& db) = delete;
+
+    ~DisplayBridge();
+
+    void LoadTexture(float canvasWidth, float canvasHeight);
+    void SetTexFilter(TextureFilter filterMode);
     void BeginTextureDraw();
     void EndTextureDraw();
 
-    void drawBridge(bridgeMode mode = FIT_TO_SCREEN);
+    void DrawBridge(bridgeMode mode = SCALE_HEIGHT_CENTRE_TO_SCREEN);
 
+    void SetDisplaySize(float dispWidth, float dispHeight);
+    Vector2 GetMousePositionScaled();
+
+    void DrawDebugResolutions();
 private:
     // variables
     RenderTexture2D target;
+    bool texLoaded {};
 
     // functions
+    
 
 };
