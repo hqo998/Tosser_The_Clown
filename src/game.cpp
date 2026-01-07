@@ -72,6 +72,7 @@ int main()
         canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
                                   static_cast<float>(GetScreenHeight()));
         canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
+        canvasTarget.DrawBridge(NATIVE);
         canvasTarget.DrawDebugResolutions();
 
         Vector2 mousePos = canvasTarget.GetMousePositionScaled();

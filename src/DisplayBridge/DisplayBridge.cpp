@@ -70,6 +70,11 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
 
     switch (mode)
     {
+    case NATIVE:
+        destRecTarget = {0, 0,
+                         canvasWidth,
+                         canvasHeight};
+        break;
     case STRETCH_TO_SCREEN:
         break;
     case CENTRE_TO_SCREEN:

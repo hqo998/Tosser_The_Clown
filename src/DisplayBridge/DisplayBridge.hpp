@@ -8,6 +8,7 @@ enum bridgeMode
     CENTRE_TO_SCREEN,
     SCALE_HEIGHT_CENTRE_TO_SCREEN,
     SCALE_MAINTAIN_SCREEN,
+    NATIVE
 };
 
 class DisplayBridge
