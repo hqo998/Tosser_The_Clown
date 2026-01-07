@@ -63,10 +63,10 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
                                displayWidth,
                                displayHeight};
 
-    Vector2 originTarget = { 0.0f, 0.0f }; // centre of canvas
+    Vector2 originTarget = {0.0f, 0.0f}; // centre of canvas
 
-    float widthScaledToHeight { 0 };
-    float heightScaledToWidth { 0 };
+    float widthScaledToHeight{0};
+    float heightScaledToWidth{0};
 
     switch (mode)
     {
@@ -78,28 +78,29 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
     case STRETCH_TO_SCREEN:
         break;
     case CENTRE_TO_SCREEN:
-        originTarget = {canvasWidth/2, canvasHeight/2};
+        originTarget = {canvasWidth / 2, canvasHeight / 2};
 
-        destRecTarget = {displayWidth/2,  displayHeight/2,
-                                 (canvasWidth),
-                                 (canvasHeight)};
+        destRecTarget = {displayWidth / 2, displayHeight / 2,
+                         (canvasWidth),
+                         (canvasHeight)};
         break;
     case SCALE_MAINTAIN_SCREEN:
         heightScaledToWidth = (displayWidth / canvasWidth) * canvasHeight;
 
-        originTarget = { displayWidth/2,  heightScaledToWidth/2 };
+        originTarget = {displayWidth / 2, heightScaledToWidth / 2};
 
-        destRecTarget = {displayWidth/2, displayHeight/2,
+        destRecTarget = {displayWidth / 2, displayHeight / 2,
                          displayWidth,
                          heightScaledToWidth};
-        if (heightScaledToWidth < displayHeight) break;
+        if (heightScaledToWidth < displayHeight)
+            break;
     case SCALE_HEIGHT_CENTRE_TO_SCREEN:
     default:
         widthScaledToHeight = (displayHeight / canvasHeight) * canvasWidth;
 
-        originTarget = { widthScaledToHeight/2,  displayHeight/2 };
+        originTarget = {widthScaledToHeight / 2, displayHeight / 2};
 
-        destRecTarget = {displayWidth/2, displayHeight/2,
+        destRecTarget = {displayWidth / 2, displayHeight / 2,
                          widthScaledToHeight,
                          displayHeight};
         break;
@@ -120,9 +121,10 @@ Vector2 DisplayBridge::GetMousePositionScaled()
 {
     Vector2 realMousePosition = GetMousePosition();
 
-    if (displayWidth <= 0 || displayHeight <= 0) return { 0, 0 };
+    if (displayWidth <= 0 || displayHeight <= 0)
+        return {0, 0};
 
-    Vector2 scaledMousePosition {(realMousePosition.x / displayWidth) * canvasWidth,
-                                (realMousePosition.y / displayHeight) * canvasHeight  };
+    Vector2 scaledMousePosition{(realMousePosition.x / displayWidth) * canvasWidth,
+                                (realMousePosition.y / displayHeight) * canvasHeight};
     return scaledMousePosition;
 };

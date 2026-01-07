@@ -15,17 +15,17 @@ class DisplayBridge
 {
 public:
     // variables
-    float canvasWidth {};
-    float canvasHeight {};
+    float canvasWidth{};
+    float canvasHeight{};
 
-    float displayWidth {};
-    float displayHeight {};
+    float displayWidth{};
+    float displayHeight{};
 
     // functions
     DisplayBridge(float canvasWidth, float canvasHeight, float dispWidth, float dispHeight);
     DisplayBridge(float canvasWidth, float canvasHeight);
 
-    DisplayBridge(DisplayBridge& db) = delete;
+    DisplayBridge(DisplayBridge &db) = delete;
 
     ~DisplayBridge();
 
@@ -40,12 +40,11 @@ public:
     Vector2 GetMousePositionScaled();
 
     void DrawDebugResolutions();
+
 private:
     // variables
     RenderTexture2D target;
-    bool texLoaded {};
+    bool texLoaded{};
 
     // functions
-    
-
 };

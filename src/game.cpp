@@ -24,7 +24,6 @@ int main()
     // base width
     const float baseWidth = 500.0f;
 
-
     DisplayBridge canvasTarget(gameWidth, gameHeight);
     canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
 
@@ -49,38 +48,27 @@ int main()
 
         canvasTarget.BeginTextureDraw();
 
-        ClearBackground(RAYWHITE);
+            ClearBackground(RAYWHITE);
 
-        DrawTexturePro(texture, sourceRec, destRec, origin, 0.0f, WHITE);
+            DrawTexturePro(texture, sourceRec, destRec, origin, 0.0f, WHITE);
 
-        canvasTarget.EndTextureDraw();
+            canvasTarget.EndTextureDraw();
 
         BeginDrawing();
-        ClearBackground(BLACK); // Background if aspect ratios don't match
+            ClearBackground(BLACK); // Background if aspect ratios don't match
 
-        // // Define source (720p) and destination rectangles with offset to make sure the target is always centred.
-        // Rectangle sourceRecTarget = { 0.0f, 0.0f, (float)target.texture.width, (float)-(target.texture.height) };
+            canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
+                                        static_cast<float>(GetScreenHeight()));
+            canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
+            canvasTarget.DrawBridge(NATIVE);
+            canvasTarget.DrawDebugResolutions();
 
-        // float centredWidth = (float)target.texture.width * ((float)screenHeight / target.texture.height);
-        // float centredOriginOffset = ((centredWidth - float(screenWidth))/2);
+            Vector2 mousePos = canvasTarget.GetMousePositionScaled();
 
-        // Rectangle destRecTarget = { 0.0f, 0.0f, centredWidth, (float)screenHeight };
-        // Vector2 originTarget = { 0 + centredOriginOffset, 0 };
+            DrawCircle((int)mousePos.x, (int)mousePos.y, 10, RED);
 
-        // DrawTexturePro(target.texture, sourceRecTarget, destRecTarget, originTarget, 0.0f, WHITE);
-
-        canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
-                                  static_cast<float>(GetScreenHeight()));
-        canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
-        canvasTarget.DrawBridge(NATIVE);
-        canvasTarget.DrawDebugResolutions();
-
-        Vector2 mousePos = canvasTarget.GetMousePositionScaled();
-
-        DrawCircle((int)mousePos.x, (int)mousePos.y, 10, RED);
-
-        // DrawText(TextFormat("Centre X Offset: %f", centredOriginOffset), 10, 40, 20, GREEN);
-        DrawFPS(10, 10);
+            // DrawText(TextFormat("Centre X Offset: %f", centredOriginOffset), 10, 40, 20, GREEN);
+            DrawFPS(10, 10);
         EndDrawing();
     }
 
