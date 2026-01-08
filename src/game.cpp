@@ -33,7 +33,7 @@ int main()
 
         canvasTarget.BeginTextureDraw();
 
-            ClearBackground(RAYWHITE);
+            ClearBackground(LIGHTGRAY);
 
             clown.Draw();
 
@@ -47,12 +47,12 @@ int main()
             canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
                                         static_cast<float>(GetScreenHeight()));
             canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
-            canvasTarget.DrawBridge(NATIVE);
-            canvasTarget.DrawDebugResolutions();
+            // canvasTarget.DrawBridge(NATIVE);
+            // canvasTarget.DrawDebugResolutions();
 
-            Vector2 mousePos = canvasTarget.GetMousePositionScaled();
+            // Vector2 mousePos = canvasTarget.GetMousePositionScaled();
 
-            DrawCircle((int)mousePos.x, (int)mousePos.y, 10, RED);
+            // DrawCircle((int)mousePos.x, (int)mousePos.y, 10, RED);
 
             // DrawText(TextFormat("Centre X Offset: %f", centredOriginOffset), 10, 40, 20, GREEN);
             DrawFPS(10, 10);

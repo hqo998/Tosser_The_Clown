@@ -36,8 +36,8 @@ private:
 
 public:
     // variables
-    Vector2 position;
-    Vector2 scale;
+    Vector2 position {0, 0};
+    Vector2 scale {0, 0};
 
 
     // functions
