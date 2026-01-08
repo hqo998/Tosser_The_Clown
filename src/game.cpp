@@ -26,7 +26,13 @@ int main()
     DisplayBridge canvasTarget(gameWidth, gameHeight);
     canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
 
-    Sprite clown("resources/tmp/TosserSpritesheetTest.png");
+    Sprite clown("resources/tmp/TosserSpritesheetTest.png", 9, 2);
+
+    clown.scale = {.8f, .8f};
+
+    clown.position = {gameWidth/2, gameHeight/2};
+
+    clown.SetOrigin(O_CENTER);
 
     while (!WindowShouldClose())
     {

@@ -14,13 +14,6 @@ enum Origins {
     O_CENTER
 };
 
-// cant redefine since raylib has def as float.
-struct Vector2int
-{
-    int x {};
-    int y {};
-};
-
 class Sprite
 {
 private:
@@ -29,22 +22,25 @@ private:
     bool textureLoaded {false};
 
     Rectangle sourceRect;
-    Vector2 currentOrigin;
+    Vector2 Origin;
 
-    int spriteFrames;
+    int spriteFramesX {1};
+    int spriteFramesY {1};
     // functions
 
 public:
     // variables
     Vector2 position {0, 0};
-    Vector2 scale {0, 0};
+    Vector2 scale {1, 1};
 
 
     // functions
     Sprite();
     Sprite(const std::string& texture_path);
+    Sprite(const std::string& texture_path, int spriteFramesX, int spriteFramesY);
     ~Sprite();
-    void LoadSprite(const char *texture_path);
+    void LoadSprite(const std::string& texture_path);
     void SetOrigin(Origins origin_value);
+    // void setFrame(int frameIndexX, int frameIndexY);
     void Draw();
 };
