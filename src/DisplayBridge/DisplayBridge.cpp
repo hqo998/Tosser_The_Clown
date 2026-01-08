@@ -107,8 +107,8 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
     }
 
     DrawTexturePro(target.texture, sourceRecTarget, destRecTarget, originTarget, 0.0f, WHITE);
-    DrawCircle((int)originTarget.x, (int)originTarget.y, 20, RED);
-    DrawText(TextFormat("Origin: x=%f y=%f", originTarget.x, originTarget.y), 10, (int)50, 20, RED);
+    // DrawCircle((int)originTarget.x, (int)originTarget.y, 20, RED);
+    // DrawText(TextFormat("Origin: x=%f y=%f", originTarget.x, originTarget.y), 10, (int)50, 20, RED);
 };
 
 void DisplayBridge::DrawDebugResolutions()

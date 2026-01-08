@@ -1,6 +1,7 @@
 #include "raylib.h"
 
 #include "DisplayBridge/DisplayBridge.hpp"
+#include "Sprite/Sprite.hpp"
 
 int main()
 {
@@ -21,36 +22,22 @@ int main()
     // load image
     Texture2D texture = LoadTexture("resources/tmp/coluredCircles.png");
 
-    // base width
-    const float baseWidth = 500.0f;
-
+    // display bridge for multi-resolution management
     DisplayBridge canvasTarget(gameWidth, gameHeight);
     canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
 
+    Sprite clown("resources/tmp/TosserSpritesheetTest.png");
+
     while (!WindowShouldClose())
     {
-        screenWidth = GetScreenWidth();
-        screenHeight = GetScreenHeight();
-
-        float scale = (float)gameWidth / baseWidth;
-
-        Rectangle sourceRec = {0.0f, 0.0f, (float)texture.width, (float)texture.height};
-
-        Rectangle destRec = {
-            (float)gameWidth / 2.0f,
-            (float)gameHeight / 2.0f,
-            (float)texture.width * scale * .1f,
-            (float)texture.height * scale * .1f};
-
-        Vector2 origin = {
-            (float)destRec.width * (float).5,
-            (float)destRec.height * (float).5};
 
         canvasTarget.BeginTextureDraw();
 
             ClearBackground(RAYWHITE);
 
-            DrawTexturePro(texture, sourceRec, destRec, origin, 0.0f, WHITE);
+            clown.Draw();
+
+            // DrawTexturePro(texture, sourceRec, destRec, origin, 0.0f, WHITE);
 
             canvasTarget.EndTextureDraw();
 

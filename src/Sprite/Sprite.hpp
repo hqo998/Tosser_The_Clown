@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "raylib.h"
 
 enum Origins {
@@ -13,19 +14,26 @@ enum Origins {
     O_CENTER
 };
 
-class SpriteController
+// cant redefine since raylib has def as float.
+struct Vector2int
+{
+    int x {};
+    int y {};
+};
+
+class Sprite
 {
 private:
     // variables
     Texture2D texture;
     bool textureLoaded {false};
 
-    float rect_width, rect_height;
+    Rectangle sourceRect;
+    Vector2 currentOrigin;
 
-    Vector2 current_origin;
-
+    int spriteFrames;
     // functions
-    ~SpriteController();
+
 public:
     // variables
     Vector2 position;
@@ -33,8 +41,9 @@ public:
 
 
     // functions
-    SpriteController();
-    SpriteController(const char *texture_path);
+    Sprite();
+    Sprite(const std::string& texture_path);
+    ~Sprite();
     void LoadSprite(const char *texture_path);
     void SetOrigin(Origins origin_value);
     void Draw();

@@ -1,6 +1,6 @@
 target_sources(${PROJECT_NAME} PRIVATE
     game.cpp
-    SpriteControl/SpriteController.cpp
+    Sprite/Sprite.cpp
     DisplayBridge/DisplayBridge.cpp
 )
 
