@@ -16,7 +16,7 @@ int main()
 
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
     // ToggleBorderlessWindowed();
-    SetTargetFPS(60);
+    SetTargetFPS(5);
     SetWindowMinSize(300, 300);
 
     // load image
@@ -33,6 +33,10 @@ int main()
     clown.position = {gameWidth/2, gameHeight/2};
 
     clown.SetOrigin(O_CENTER);
+
+    clown.SetFrame(3, 0);
+
+    int frame = 0;
 
     while (!WindowShouldClose())
     {
@@ -57,8 +61,12 @@ int main()
             // canvasTarget.DrawDebugResolutions();
 
             // Vector2 mousePos = canvasTarget.GetMousePositionScaled();
-
+            clown.SetFrame(frame, 0);
             // DrawCircle((int)mousePos.x, (int)mousePos.y, 10, RED);
+
+            frame += 1;
+
+            if (frame > 8) frame = 0;
 
             // DrawText(TextFormat("Centre X Offset: %f", centredOriginOffset), 10, 40, 20, GREEN);
             DrawFPS(10, 10);

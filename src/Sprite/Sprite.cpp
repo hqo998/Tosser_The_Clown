@@ -10,12 +10,12 @@ Sprite::Sprite()
 {
 }
 
-Sprite::Sprite(const std::string& texture_path)
+Sprite::Sprite(const std::string &texture_path)
 {
     LoadSprite(texture_path);
 };
 
-Sprite::Sprite(const std::string& texture_path, int spriteFramesX, int spriteFramesY)
+Sprite::Sprite(const std::string &texture_path, int spriteFramesX, int spriteFramesY)
     : spriteFramesX{spriteFramesX}, spriteFramesY{spriteFramesY}
 {
     LoadSprite(texture_path);
@@ -29,23 +29,26 @@ Sprite::~Sprite()
     }
 }
 
-void Sprite::LoadSprite(const std::string& texture_path)
+void Sprite::LoadSprite(const std::string &texture_path)
 {
     texture = LoadTexture(texture_path.c_str());
     textureLoaded = true;
 
-    sourceRect = { 0.f, 0.f,
-        static_cast<float>(texture.width) / spriteFramesX,
-        static_cast<float>(texture.height) / spriteFramesY};
+    sourceRect = {0.f, 0.f,
+                  static_cast<float>(texture.width) / spriteFramesX,
+                  static_cast<float>(texture.height) / spriteFramesY};
 
     SetOrigin(O_TOP_LEFT);
 }
 
-// void setFrame(int frameIndexX, int frameIndexY)
-// {
-//     int frame = frameIndexX;
-//     int framez = frameIndexY;
-// };
+void Sprite::SetFrame(int frameIndexX, int frameIndexY)
+{
+    sourceRect = {
+        sourceRect.width * (frameIndexX),
+        sourceRect.height * (frameIndexY),
+        sourceRect.width,
+        sourceRect.height};
+};
 
 void Sprite::SetOrigin(Origins origin_value)
 {
@@ -84,7 +87,7 @@ void Sprite::SetOrigin(Origins origin_value)
 
 void Sprite::Draw()
 {
-    Rectangle destRect = { position.x, position.y, sourceRect.width * scale.x, sourceRect.height * scale.y};
+    Rectangle destRect = {position.x, position.y, sourceRect.width * scale.x, sourceRect.height * scale.y};
 
     Vector2 destOrigin = {destRect.width * Origin.x, destRect.height * Origin.y};
 

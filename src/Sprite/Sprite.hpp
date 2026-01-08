@@ -41,6 +41,6 @@ public:
     ~Sprite();
     void LoadSprite(const std::string& texture_path);
     void SetOrigin(Origins origin_value);
-    // void setFrame(int frameIndexX, int frameIndexY);
+    void SetFrame(int frameIndexX, int frameIndexY);
     void Draw();
 };
