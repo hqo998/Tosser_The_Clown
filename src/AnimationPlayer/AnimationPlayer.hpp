@@ -15,15 +15,15 @@
 
 struct frameIndex
 {
-    int row;
-    int column;
+    int x;
+    int y;
 };
 
 struct AnimationSequence
 {
     frameIndex startFrame;
-    int length;
-    float playbackSpeed;
+    int lengthFrames;
+    float speedFPS;
     std::unordered_map<int, float> frameHolds;
     bool loop;
 };
@@ -36,7 +36,7 @@ private:
     std::unique_ptr<AnimationSequence> currentAnimation = nullptr;
 
     float timer;
-    int currentStep;
+    frameIndex currentFrameIndex;
 
 public:
 
@@ -46,8 +46,9 @@ public:
 
     void AddAnimation(std::string_view animationName ,const AnimationSequence &aniSeq);
     
-    void PlayAnimation();
-    void GetCurrentFrameIndex();
+    void PlayAnimation(const std::string& animationName);
+    void PlayAnimation(const AnimationSequence& animationSeq);
+    frameIndex GetCurrentFrameIndex();
     void Update();
 
 };

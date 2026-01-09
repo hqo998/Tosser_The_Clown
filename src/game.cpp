@@ -35,7 +35,20 @@ int main()
 
     clown.SetOrigin(O_CENTER);
 
-    clown.SetFrame(3, 0);
+    AnimationSequence clownThrow = {
+        {0, 0},
+        8,
+        30,
+        {},
+        true,
+    };
+
+    AnimationPlayer clownAni;
+    clownAni.PlayAnimation(clownThrow);
+
+    frameIndex currentFrame = {clownAni.GetCurrentFrameIndex()};
+
+    clown.SetFrame(currentFrame.x, currentFrame.y );
 
     int frame = 0;
 
@@ -58,18 +71,12 @@ int main()
             canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
                                         static_cast<float>(GetScreenHeight()));
             canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
-            // canvasTarget.DrawBridge(NATIVE);
-            // canvasTarget.DrawDebugResolutions();
 
-            // Vector2 mousePos = canvasTarget.GetMousePositionScaled();
-            clown.SetFrame(frame, 0);
-            // DrawCircle((int)mousePos.x, (int)mousePos.y, 10, RED);
 
-            frame += 1;
+            frameIndex currentFrame = {clownAni.GetCurrentFrameIndex()};
 
-            if (frame > 8) frame = 0;
+            clown.SetFrame(currentFrame.x, currentFrame.y );
 
-            // DrawText(TextFormat("Centre X Offset: %f", centredOriginOffset), 10, 40, 20, GREEN);
             DrawFPS(10, 10);
         EndDrawing();
     }
