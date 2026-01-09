@@ -1,6 +1,7 @@
 #include "raylib.h"
 
 #include "DisplayBridge/DisplayBridge.hpp"
+#include "AnimationPlayer/AnimationPlayer.hpp"
 #include "Sprite/Sprite.hpp"
 
 int main()
