@@ -7,7 +7,6 @@
 
 #include <raylib.h>
 
-
 // how many frames to play
 // what row
 // how long to hold each frame
@@ -33,30 +32,27 @@ class AnimationPlayer
 {
 private:
     std::unordered_map<std::string, AnimationSequence> savedAnimations;
-    
+
     std::unique_ptr<AnimationSequence> currentAnimation = nullptr;
 
-    float timer {0};
+    float timer{0};
     frameIndex currentFrameIndex;
-    bool finished {};
+    bool finished{};
 
-    int holdCount {};
-    int lastHoldIndex {-5};
+    int holdCount{};
+    int lastHoldIndex{-5};
 
 public:
-
-
     // functions
     AnimationPlayer();
 
-    void AddAnimation(const std::string& animationName, const AnimationSequence &aniSeq);
-    
-    void PlayAnimation(const std::string& animationName);
-    void PlayAnimation(const AnimationSequence& animationSeq);
+    void AddAnimation(const std::string &animationName, const AnimationSequence &aniSeq);
+
+    void PlayAnimation(const std::string &animationName);
+    void PlayAnimation(const AnimationSequence &animationSeq);
     std::string_view GetCurrentAnimationName();
     frameIndex GetCurrentFrameIndex();
     void Update();
 
     bool Finished();
-
 };

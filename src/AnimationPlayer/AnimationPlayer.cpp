@@ -4,22 +4,21 @@
 
 // #include <print>
 
-AnimationPlayer::AnimationPlayer()
-{
+AnimationPlayer::AnimationPlayer() {
 };
 
-void AnimationPlayer::AddAnimation(const std::string& animationName ,const AnimationSequence &aniSeq)
+void AnimationPlayer::AddAnimation(const std::string &animationName, const AnimationSequence &aniSeq)
 {
     savedAnimations.try_emplace(animationName, aniSeq);
 };
 
-void AnimationPlayer::PlayAnimation(const AnimationSequence& animationSeq)
+void AnimationPlayer::PlayAnimation(const AnimationSequence &animationSeq)
 {
     AddAnimation(animationSeq.name, animationSeq);
     PlayAnimation(animationSeq.name);
 };
 
-void AnimationPlayer::PlayAnimation(const std::string& animationName)
+void AnimationPlayer::PlayAnimation(const std::string &animationName)
 {
     currentAnimation = std::make_unique<AnimationSequence>(savedAnimations.at(animationName));
     currentFrameIndex = currentAnimation->startFrame;
@@ -27,8 +26,6 @@ void AnimationPlayer::PlayAnimation(const std::string& animationName)
     holdCount = 0;
     lastHoldIndex = -1;
 };
-
-
 
 std::string_view AnimationPlayer::GetCurrentAnimationName()
 {
@@ -47,8 +44,10 @@ bool AnimationPlayer::Finished()
 
 void AnimationPlayer::Update()
 {
-    if (!currentAnimation) return; // return if nullptr.
-    if (currentAnimation->speedFPS <= 0.f) return; // return if speed is 0
+    if (!currentAnimation)
+        return; // return if nullptr.
+    if (currentAnimation->speedFPS <= 0.f)
+        return; // return if speed is 0
 
     timer += GetFrameTime();
     const float timePerFrame = 1 / currentAnimation->speedFPS;

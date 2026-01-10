@@ -33,26 +33,26 @@ int main()
 
     clown.scale = {.8f, .8f};
 
-    clown.position = {gameWidth/2, gameHeight/2};
+    clown.position = {gameWidth / 2, gameHeight / 2};
 
     clown.SetOrigin(O_CENTER);
 
     AnimationSequence clownThrow = {
         "Throw",
         {0, 0}, // start frame
-        9, // how many frames long
-        5, // fps speed
-        false, // do loop
-        { }, // what frames to pause on and how many frames for
+        9,      // how many frames long
+        5,      // fps speed
+        false,  // do loop
+        {},     // what frames to pause on and how many frames for
     };
 
     AnimationSequence clownTalk = {
         "Talk",
         {0, 1}, // start frame
-        2, // how many frames long
-        2, // fps speed
-        true, // do loop
-        {}, // what frames to pause on and how many frames for
+        2,      // how many frames long
+        2,      // fps speed
+        true,   // do loop
+        {},     // what frames to pause on and how many frames for
     };
 
     AnimationPlayer clownAni;
@@ -60,7 +60,7 @@ int main()
 
     frameIndex currentFrame = {clownAni.GetCurrentFrameIndex()};
 
-    clown.SetFrame(currentFrame.x, currentFrame.y );
+    clown.SetFrame(currentFrame.x, currentFrame.y);
 
     bool popped = false;
 
@@ -69,45 +69,41 @@ int main()
 
         canvasTarget.BeginTextureDraw();
 
-            ClearBackground(LIGHTGRAY);
+        ClearBackground(LIGHTGRAY);
 
-            clown.Draw();
+        clown.Draw();
 
-            // DrawTexturePro(texture, sourceRec, destRec, origin, 0.0f, WHITE);
+        // DrawTexturePro(texture, sourceRec, destRec, origin, 0.0f, WHITE);
 
-            canvasTarget.EndTextureDraw();
+        canvasTarget.EndTextureDraw();
 
         BeginDrawing();
-            ClearBackground(BLACK); // Background if aspect ratios don't match
+        ClearBackground(BLACK); // Background if aspect ratios don't match
 
-            canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
-                                        static_cast<float>(GetScreenHeight()));
-            canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
+        canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
+                                    static_cast<float>(GetScreenHeight()));
+        canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
 
-            
+        if ((int)GetTime() != 0 && (int)GetTime() % 5 == 0 && !popped)
+        {
+            std::println("play ani");
+            clownAni.PlayAnimation("Throw");
+            popped = true;
+        }
 
-            if ((int)GetTime() != 0 && (int)GetTime() % 5 == 0 && !popped)
-            {
-                std::println("play ani");
-                clownAni.PlayAnimation("Throw");
-                popped = true;
-                
-            }
-    
-            clownAni.Update();
-            
-            if (clownAni.Finished())
-                popped = false;
-                // clownAni.PlayAnimation(clownTalk);
+        clownAni.Update();
 
-            std::println("{}", clownAni.GetCurrentAnimationName());
-            
-            
-            currentFrame = {clownAni.GetCurrentFrameIndex()};
+        if (clownAni.Finished())
+            popped = false;
+        // clownAni.PlayAnimation(clownTalk);
 
-            clown.SetFrame(currentFrame.x, currentFrame.y );
+        std::println("{}", clownAni.GetCurrentAnimationName());
 
-            DrawFPS(10, 10);
+        currentFrame = {clownAni.GetCurrentFrameIndex()};
+
+        clown.SetFrame(currentFrame.x, currentFrame.y);
+
+        DrawFPS(10, 10);
         EndDrawing();
     }
 
