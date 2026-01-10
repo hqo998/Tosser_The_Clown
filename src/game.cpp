@@ -8,30 +8,30 @@
 
 int main()
 {
+    #pragma region SCREEN_INIT
     int screenWidth{500};
     int screenHeight{500};
 
-    const int gameWidth = 300; // Internal Render (720p
-    const int gameHeight = 300;
+    const int gameWidth = 1080; // Internal Render (720p
+    const int gameHeight = 1080;
 
     // SetConfigFlags(FLAG_MSAA_4X_HINT);
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
     // ToggleBorderlessWindowed();
-    SetTargetFPS(60);
+    // SetTargetFPS(60);
     SetWindowMinSize(300, 300);
 
-    // load image
-    Texture2D texture = LoadTexture("resources/tmp/coluredCircles.png");
 
     // display bridge for multi-resolution management
     DisplayBridge canvasTarget(gameWidth, gameHeight);
     canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
+    #pragma endregion
 
     Sprite clown("resources/tmp/TosserSpritesheetTest.png", 9, 2);
 
-    clown.scale = {.8f, .8f};
+    clown.scale = {1.f, 1.f};
 
     clown.position = {gameWidth / 2, gameHeight / 2};
 
@@ -66,30 +66,12 @@ int main()
 
     while (!WindowShouldClose())
     {
-
-        canvasTarget.BeginTextureDraw();
-
-        ClearBackground(LIGHTGRAY);
-
-        clown.Draw();
-
-        // DrawTexturePro(texture, sourceRec, destRec, origin, 0.0f, WHITE);
-
-        canvasTarget.EndTextureDraw();
-
-        BeginDrawing();
-        ClearBackground(BLACK); // Background if aspect ratios don't match
-
-        canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
-                                    static_cast<float>(GetScreenHeight()));
-        canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
-
         if ((int)GetTime() != 0 && (int)GetTime() % 5 == 0 && !popped)
-        {
-            std::println("play ani");
-            clownAni.PlayAnimation("Throw");
-            popped = true;
-        }
+            {
+                std::println("play ani");
+                clownAni.PlayAnimation("Throw");
+                popped = true;
+            }
 
         clownAni.Update();
 
@@ -97,18 +79,37 @@ int main()
             popped = false;
         // clownAni.PlayAnimation(clownTalk);
 
-        std::println("{}", clownAni.GetCurrentAnimationName());
+        // std::println("{}", clownAni.GetCurrentAnimationName());
 
         currentFrame = {clownAni.GetCurrentFrameIndex()};
 
         clown.SetFrame(currentFrame.x, currentFrame.y);
 
-        DrawFPS(10, 10);
+        #pragma region CANVAS_RENDER
+        canvasTarget.BeginTextureDraw();
+        {
+            ClearBackground(LIGHTGRAY);
+            clown.Draw();
+            clown.DrawRect(5);
+        }
+        canvasTarget.EndTextureDraw();
+        #pragma endregion
+
+        #pragma region SCREEN_RENDER
+        BeginDrawing();
+        {
+            ClearBackground(BLACK); // Background if aspect ratios don't match
+
+            canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
+                                        static_cast<float>(GetScreenHeight()));
+            canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
+
+            DrawFPS(10, 10);
+        }
         EndDrawing();
+        #pragma endregion
     }
 
-    UnloadTexture(texture);
-    CloseWindow();
 
-    return 0;
+    CloseWindow();
 }

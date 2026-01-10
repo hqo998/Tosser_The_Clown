@@ -3,7 +3,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     Sprite/Sprite.cpp
     DisplayBridge/DisplayBridge.cpp
     AnimationPlayer/AnimationPlayer.cpp
-)
+    Clown/Clown.cpp
+    )
 
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})

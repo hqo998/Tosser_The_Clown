@@ -8,15 +8,15 @@ Sprite::Sprite()
 {
 }
 
-Sprite::Sprite(const std::string &texture_path)
+Sprite::Sprite(const std::string &texturePath)
 {
-    LoadSprite(texture_path);
+    LoadSprite(texturePath);
 };
 
-Sprite::Sprite(const std::string &texture_path, int spriteFramesX, int spriteFramesY)
+Sprite::Sprite(const std::string &texturePath, int spriteFramesX, int spriteFramesY)
     : spriteFramesX{spriteFramesX}, spriteFramesY{spriteFramesY}
 {
-    LoadSprite(texture_path);
+    LoadSprite(texturePath);
 };
 
 Sprite::~Sprite()
@@ -27,9 +27,9 @@ Sprite::~Sprite()
     }
 }
 
-void Sprite::LoadSprite(const std::string &texture_path)
+void Sprite::LoadSprite(const std::string &texturePath)
 {
-    texture = LoadTexture(texture_path.c_str());
+    texture = LoadTexture(texturePath.c_str());
     textureLoaded = true;
 
     sourceRect = {0.f, 0.f,
@@ -38,6 +38,13 @@ void Sprite::LoadSprite(const std::string &texture_path)
 
     SetOrigin(O_TOP_LEFT);
 }
+
+void Sprite::LoadSprite(const std::string& texturePath, int spriteTilesX, int spriteTilesY)
+{
+    LoadSprite(texturePath);
+    this->spriteFramesX = spriteTilesX;
+    this->spriteFramesY = spriteTilesY;
+};
 
 void Sprite::SetFrame(int frameIndexX, int frameIndexY)
 {
@@ -83,11 +90,46 @@ void Sprite::SetOrigin(Origins origin_value)
     }
 }
 
+Rectangle Sprite::DestPro(Rectangle dest, Vector2 origin)
+{
+     dest.x = dest.x - origin.x;
+     dest.y = dest.y - origin.y;
+     return dest;
+}
+
+Rectangle Sprite::GetDestRect()
+{
+    return {position.x, position.y, sourceRect.width * scale.x, sourceRect.height * scale.y};
+};
+
+Vector2 Sprite::GetDestOrigin(Rectangle rect)
+{
+    return {rect.width * Origin.x, rect.height * Origin.y};
+};
+
 void Sprite::Draw()
 {
-    Rectangle destRect = {position.x, position.y, sourceRect.width * scale.x, sourceRect.height * scale.y};
-
-    Vector2 destOrigin = {destRect.width * Origin.x, destRect.height * Origin.y};
+    Rectangle destRect = GetDestRect();
+    Vector2 destOrigin = GetDestOrigin(destRect);
 
     DrawTexturePro(texture, sourceRect, destRect, destOrigin, 0.f, WHITE);
 }
+
+void Sprite::DrawRect(float thickness)
+{
+    Rectangle destRect = GetDestRect();
+    Vector2 destOrigin = GetDestOrigin(destRect);
+
+    // DrawRectanglePro(destRect, destOrigin, 0.f, RED);
+
+    destRect = DestPro(destRect, destOrigin);
+    DrawRectangleLinesEx(destRect, thickness, RED);
+
+};
+
+Rectangle Sprite::GetRect()
+{
+    Rectangle destRect = GetDestRect();
+    Vector2 destOrigin = GetDestOrigin(destRect);
+    return DestPro(destRect, destOrigin);
+};
