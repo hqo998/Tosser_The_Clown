@@ -2,15 +2,21 @@
 
 #include <raylib.h>
 
-#include <print>
+// #include <print>
 
 AnimationPlayer::AnimationPlayer()
 {
 };
 
-void AnimationPlayer::AddAnimation(std::string_view animationName ,const AnimationSequence &aniSeq)
+void AnimationPlayer::AddAnimation(const std::string& animationName ,const AnimationSequence &aniSeq)
 {
-    savedAnimations.emplace(animationName, aniSeq);
+    savedAnimations.try_emplace(animationName, aniSeq);
+};
+
+void AnimationPlayer::PlayAnimation(const AnimationSequence& animationSeq)
+{
+    AddAnimation(animationSeq.name, animationSeq);
+    PlayAnimation(animationSeq.name);
 };
 
 void AnimationPlayer::PlayAnimation(const std::string& animationName)
@@ -18,13 +24,15 @@ void AnimationPlayer::PlayAnimation(const std::string& animationName)
     currentAnimation = std::make_unique<AnimationSequence>(savedAnimations.at(animationName));
     currentFrameIndex = currentAnimation->startFrame;
     finished = false;
+    holdCount = 0;
+    lastHoldIndex = -1;
 };
 
-void AnimationPlayer::PlayAnimation(const AnimationSequence& animationSeq)
+
+
+std::string_view AnimationPlayer::GetCurrentAnimationName()
 {
-    currentAnimation = std::make_unique<AnimationSequence>(animationSeq);
-    currentFrameIndex = currentAnimation->startFrame;
-    finished = false;
+    return currentAnimation->name;
 };
 
 frameIndex AnimationPlayer::GetCurrentFrameIndex()
@@ -32,29 +40,55 @@ frameIndex AnimationPlayer::GetCurrentFrameIndex()
     return currentFrameIndex;
 };
 
+bool AnimationPlayer::Finished()
+{
+    return finished;
+}
+
 void AnimationPlayer::Update()
 {
     if (!currentAnimation) return; // return if nullptr.
+    if (currentAnimation->speedFPS <= 0.f) return; // return if speed is 0
 
     timer += GetFrameTime();
+    const float timePerFrame = 1 / currentAnimation->speedFPS;
 
-    if (timer >= 1/currentAnimation->speedFPS && !finished)
+    while (timer >= timePerFrame)
     {
-        currentFrameIndex.x += static_cast<int>(timer / (1/currentAnimation->speedFPS));
-        // ^ So ani skips frames if fps goes too slow
-        timer = 0;
+        timer -= timePerFrame;
+        currentFrameIndex.x++;
 
-        if (currentFrameIndex.x >= currentAnimation->framesLength && currentAnimation->loop)
+        if (currentAnimation->frameHolds.contains(currentFrameIndex.x - 1) && !holdCount && lastHoldIndex != currentFrameIndex.x - 1)
         {
-            currentFrameIndex.x = currentAnimation->startFrame.x;
+            // std::println("found map");
+            holdCount = currentAnimation->frameHolds.at(currentFrameIndex.x - 1) - 1;
+            lastHoldIndex = currentFrameIndex.x - 1;
+            currentFrameIndex.x--;
         }
-        else if (currentFrameIndex.x >= currentAnimation->framesLength - 1 && !currentAnimation->loop)
+        else if (holdCount)
         {
+            // std::println("hold not 0");
+            currentFrameIndex.x--;
+            holdCount--;
+        }
 
-            finished = true;
+        if (currentFrameIndex.x >= currentAnimation->framesLength)
+        {
+            if (currentAnimation->loop)
+            {
+                // std::println("pop loop");
+                currentFrameIndex.x = currentAnimation->startFrame.x;
+                lastHoldIndex = -1;
+            }
+            else
+            {
+                // std::println("pop not loop");
+                currentFrameIndex.x = currentAnimation->framesLength - 1;
+                finished = true;
+                lastHoldIndex = -1;
+            }
         }
     }
 
-
-
+    // std::println("{}", currentFrameIndex.x);
 };

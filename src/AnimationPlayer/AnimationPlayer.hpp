@@ -21,11 +21,12 @@ const struct frameIndex
 
 struct AnimationSequence
 {
+    std::string name;
     const frameIndex startFrame;
     const int framesLength;
     const float speedFPS;
-    const std::unordered_map<int, float> frameHolds;
     const bool loop;
+    const std::unordered_map<int, int> frameHolds; // initialize with eg. { {1, 20}, {2, 1}, {7, 1} }
 };
 
 class AnimationPlayer
@@ -39,17 +40,23 @@ private:
     frameIndex currentFrameIndex;
     bool finished {};
 
+    int holdCount {};
+    int lastHoldIndex {-5};
+
 public:
 
 
     // functions
     AnimationPlayer();
 
-    void AddAnimation(std::string_view animationName ,const AnimationSequence &aniSeq);
+    void AddAnimation(const std::string& animationName, const AnimationSequence &aniSeq);
     
     void PlayAnimation(const std::string& animationName);
     void PlayAnimation(const AnimationSequence& animationSeq);
+    std::string_view GetCurrentAnimationName();
     frameIndex GetCurrentFrameIndex();
     void Update();
+
+    bool Finished();
 
 };

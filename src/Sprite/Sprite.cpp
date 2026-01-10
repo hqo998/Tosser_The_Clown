@@ -2,8 +2,6 @@
 
 #include "raylib.h"
 
-#include <print>
-
 // use class heritance for other sprites as this as parent.
 
 Sprite::Sprite()

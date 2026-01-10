@@ -4,6 +4,8 @@
 #include "AnimationPlayer/AnimationPlayer.hpp"
 #include "Sprite/Sprite.hpp"
 
+#include <print>
+
 int main()
 {
     int screenWidth{500};
@@ -36,11 +38,21 @@ int main()
     clown.SetOrigin(O_CENTER);
 
     AnimationSequence clownThrow = {
-        {0, 0},
-        9,
-        5,
-        {},
-        true,
+        "Throw",
+        {0, 0}, // start frame
+        9, // how many frames long
+        5, // fps speed
+        false, // do loop
+        { }, // what frames to pause on and how many frames for
+    };
+
+    AnimationSequence clownTalk = {
+        "Talk",
+        {0, 1}, // start frame
+        2, // how many frames long
+        2, // fps speed
+        true, // do loop
+        {}, // what frames to pause on and how many frames for
     };
 
     AnimationPlayer clownAni;
@@ -49,6 +61,8 @@ int main()
     frameIndex currentFrame = {clownAni.GetCurrentFrameIndex()};
 
     clown.SetFrame(currentFrame.x, currentFrame.y );
+
+    bool popped = false;
 
     while (!WindowShouldClose())
     {
@@ -70,7 +84,25 @@ int main()
                                         static_cast<float>(GetScreenHeight()));
             canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
 
+            
+
+            if ((int)GetTime() != 0 && (int)GetTime() % 5 == 0 && !popped)
+            {
+                std::println("play ani");
+                clownAni.PlayAnimation("Throw");
+                popped = true;
+                
+            }
+    
             clownAni.Update();
+            
+            if (clownAni.Finished())
+                popped = false;
+                // clownAni.PlayAnimation(clownTalk);
+
+            std::println("{}", clownAni.GetCurrentAnimationName());
+            
+            
             currentFrame = {clownAni.GetCurrentFrameIndex()};
 
             clown.SetFrame(currentFrame.x, currentFrame.y );
