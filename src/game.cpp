@@ -17,7 +17,7 @@ int main()
 
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
     // ToggleBorderlessWindowed();
-    SetTargetFPS(5);
+    SetTargetFPS(60);
     SetWindowMinSize(300, 300);
 
     // load image
@@ -37,8 +37,8 @@ int main()
 
     AnimationSequence clownThrow = {
         {0, 0},
-        8,
-        30,
+        9,
+        5,
         {},
         true,
     };
@@ -49,8 +49,6 @@ int main()
     frameIndex currentFrame = {clownAni.GetCurrentFrameIndex()};
 
     clown.SetFrame(currentFrame.x, currentFrame.y );
-
-    int frame = 0;
 
     while (!WindowShouldClose())
     {
@@ -72,8 +70,8 @@ int main()
                                         static_cast<float>(GetScreenHeight()));
             canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
 
-
-            frameIndex currentFrame = {clownAni.GetCurrentFrameIndex()};
+            clownAni.Update();
+            currentFrame = {clownAni.GetCurrentFrameIndex()};
 
             clown.SetFrame(currentFrame.x, currentFrame.y );
 

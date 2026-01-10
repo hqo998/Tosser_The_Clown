@@ -13,7 +13,7 @@
 // how long to hold each frame
 // what frame to start to play
 
-struct frameIndex
+const struct frameIndex
 {
     int x;
     int y;
@@ -21,11 +21,11 @@ struct frameIndex
 
 struct AnimationSequence
 {
-    frameIndex startFrame;
-    int lengthFrames;
-    float speedFPS;
-    std::unordered_map<int, float> frameHolds;
-    bool loop;
+    const frameIndex startFrame;
+    const int framesLength;
+    const float speedFPS;
+    const std::unordered_map<int, float> frameHolds;
+    const bool loop;
 };
 
 class AnimationPlayer
@@ -35,8 +35,9 @@ private:
     
     std::unique_ptr<AnimationSequence> currentAnimation = nullptr;
 
-    float timer;
+    float timer {0};
     frameIndex currentFrameIndex;
+    bool finished {};
 
 public:
 
