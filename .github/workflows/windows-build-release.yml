@@ -16,6 +16,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Setup CMake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '4.1.x' # Or whatever version you actually need
+
       - name: Set reusable strings
         # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
         id: strings
