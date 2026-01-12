@@ -22,7 +22,7 @@ struct AnimationSequence
 {
     std::string name;
     const frameIndex startFrame;
-    const int framesLength;
+    const int Length;
     const float speedFPS;
     const bool loop;
     const std::unordered_map<int, int> frameHolds; // initialize with eg. { {1, 20}, {2, 1}, {7, 1} }

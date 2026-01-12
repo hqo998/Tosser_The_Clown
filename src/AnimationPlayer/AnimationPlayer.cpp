@@ -71,7 +71,7 @@ void AnimationPlayer::Update()
             holdCount--;
         }
 
-        if (currentFrameIndex.x >= currentAnimation->framesLength)
+        if (currentFrameIndex.x >= currentAnimation->Length)
         {
             if (currentAnimation->loop)
             {
@@ -82,7 +82,7 @@ void AnimationPlayer::Update()
             else
             {
                 // std::println("pop not loop");
-                currentFrameIndex.x = currentAnimation->framesLength - 1;
+                currentFrameIndex.x = currentAnimation->Length - 1;
                 finished = true;
                 lastHoldIndex = -1;
             }
