@@ -15,12 +15,11 @@ int main()
     const int gameWidth = 1080; // Internal Render (720p
     const int gameHeight = 1080;
 
-    // SetConfigFlags(FLAG_MSAA_4X_HINT);
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
 
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
     // ToggleBorderlessWindowed();
-    // SetTargetFPS(60);
+    SetTargetFPS(60);
     SetWindowMinSize(300, 300);
 
 
