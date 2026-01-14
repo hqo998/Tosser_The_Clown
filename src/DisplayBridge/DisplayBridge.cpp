@@ -128,3 +128,8 @@ Vector2 DisplayBridge::GetMousePositionScaled()
                                 (realMousePosition.y / displayHeight) * canvasHeight};
     return scaledMousePosition;
 };
+
+Vector2 DisplayBridge::GetCanvasSize()
+{
+    return { canvasWidth, canvasHeight };
+};

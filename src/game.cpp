@@ -1,88 +1,42 @@
 #include "raylib.h"
 
 #include "DisplayBridge/DisplayBridge.hpp"
-#include "AnimationPlayer/AnimationPlayer.hpp"
-#include "Sprite/Sprite.hpp"
+
+#include "Clown/Clown.hpp"
 
 #include <print>
+
+void onMouseLeftPressed()
+{
+    std::println("play ani");
+    // pclownAni.PlayAnimation("Throw");
+};
 
 int main()
 {
     #pragma region SCREEN_INIT
     int screenWidth{500};
     int screenHeight{500};
-
-    const int gameWidth = 1080; // Internal Render (720p
-    const int gameHeight = 1080;
-
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
-
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
+
+    DisplayBridge canvasTarget(1080, 1080);
+    canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
+
     // ToggleBorderlessWindowed();
     SetTargetFPS(60);
     SetWindowMinSize(300, 300);
-
-
-    // display bridge for multi-resolution management
-    DisplayBridge canvasTarget(gameWidth, gameHeight);
-    canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
     #pragma endregion
 
-    Sprite clown("resources/tmp/TosserSpritesheetTest.png", 9, 2);
 
-    clown.scale = {1.f, 1.f};
 
-    clown.position = {gameWidth / 2, gameHeight / 2};
-
-    clown.SetOrigin(O_CENTER);
-
-    AnimationSequence clownThrow = {
-        "Throw",
-        {0, 0}, // start frame
-        9,      // how many frames long
-        5,      // fps speed
-        false,  // do loop
-        {},     // what frames to pause on and how many frames for
-    };
-
-    AnimationSequence clownTalk = {
-        "Talk",
-        {0, 1}, // start frame
-        2,      // how many frames long
-        2,      // fps speed
-        true,   // do loop
-        {},     // what frames to pause on and how many frames for
-    };
-
-    AnimationPlayer clownAni;
-    clownAni.PlayAnimation(clownThrow);
-
-    frameIndex currentFrame = {clownAni.GetCurrentFrameIndex()};
-
-    clown.SetFrame(currentFrame.x, currentFrame.y);
-
-    bool popped = false;
+    Clown clown;
 
     while (!WindowShouldClose())
     {
-        if ((int)GetTime() != 0 && (int)GetTime() % 5 == 0 && !popped)
-            {
-                std::println("play ani");
-                clownAni.PlayAnimation("Throw");
-                popped = true;
-            }
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) onMouseLeftPressed();
 
-        clownAni.Update();
-
-        if (clownAni.Finished())
-            popped = false;
-        // clownAni.PlayAnimation(clownTalk);
-
-        // std::println("{}", clownAni.GetCurrentAnimationName());
-
-        currentFrame = {clownAni.GetCurrentFrameIndex()};
-
-        clown.SetFrame(currentFrame.x, currentFrame.y);
+        clown.Update();
 
         #pragma region CANVAS_RENDER
         canvasTarget.BeginTextureDraw();

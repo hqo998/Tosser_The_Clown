@@ -55,6 +55,11 @@ void Sprite::SetFrame(int frameIndexX, int frameIndexY)
         sourceRect.height};
 };
 
+void Sprite::SetFrame(frameIndex frameIndex)
+{
+    SetFrame(frameIndex.x, frameIndex.y);
+};
+
 void Sprite::SetOrigin(Origins origin_value)
 {
     switch (origin_value)
@@ -127,7 +132,7 @@ void Sprite::DrawRect(float thickness)
 
 };
 
-Rectangle Sprite::GetRect()
+Rectangle Sprite::GetBounds()
 {
     Rectangle destRect = GetDestRect();
     Vector2 destOrigin = GetDestOrigin(destRect);

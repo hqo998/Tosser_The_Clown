@@ -38,6 +38,7 @@ public:
 
     void SetDisplaySize(float dispWidth, float dispHeight);
     Vector2 GetMousePositionScaled();
+    Vector2 GetCanvasSize();
 
     void DrawDebugResolutions();
 

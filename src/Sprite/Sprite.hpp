@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
+
 #include "raylib.h"
+
+#include "../AnimationPlayer/AnimationPlayer.hpp"
 
 enum Origins {
     O_TOP_LEFT,
@@ -46,8 +49,9 @@ public:
     void LoadSprite(const std::string& texturePath, int spriteFramesX, int spriteFramesY);
     void SetOrigin(Origins origin_value);
     void SetFrame(int frameIndexX, int frameIndexY);
+    void SetFrame(frameIndex);
     void Draw();
     void DrawRect(float thickness);
 
-    Rectangle GetRect();
+    Rectangle GetBounds();
 };
