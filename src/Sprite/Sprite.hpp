@@ -52,6 +52,7 @@ public:
     void SetFrame(frameIndex);
     void Draw();
     void DrawRect(float thickness);
+    Vector2 GetSpriteSourceSize();
 
     Rectangle GetBounds();
 };

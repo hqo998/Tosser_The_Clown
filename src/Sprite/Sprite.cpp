@@ -4,9 +4,7 @@
 
 // use class heritance for other sprites as this as parent.
 
-Sprite::Sprite()
-{
-}
+Sprite::Sprite() { };
 
 Sprite::Sprite(const std::string &texturePath)
 {
@@ -25,7 +23,7 @@ Sprite::~Sprite()
     {
         UnloadTexture(texture);
     }
-}
+};
 
 void Sprite::LoadSprite(const std::string &texturePath)
 {
@@ -37,7 +35,7 @@ void Sprite::LoadSprite(const std::string &texturePath)
                   static_cast<float>(texture.height) / spriteFramesY};
 
     SetOrigin(O_TOP_LEFT);
-}
+};
 
 void Sprite::LoadSprite(const std::string& texturePath, int spriteTilesX, int spriteTilesY)
 {
@@ -93,14 +91,14 @@ void Sprite::SetOrigin(Origins origin_value)
         Origin = {0.0f, 0.0f}; // Fallback to top-left
         break;
     }
-}
+};
 
 Rectangle Sprite::DestPro(Rectangle dest, Vector2 origin)
 {
      dest.x = dest.x - origin.x;
      dest.y = dest.y - origin.y;
      return dest;
-}
+};
 
 Rectangle Sprite::GetDestRect()
 {
@@ -118,7 +116,7 @@ void Sprite::Draw()
     Vector2 destOrigin = GetDestOrigin(destRect);
 
     DrawTexturePro(texture, sourceRect, destRect, destOrigin, 0.f, WHITE);
-}
+};
 
 void Sprite::DrawRect(float thickness)
 {
@@ -137,4 +135,9 @@ Rectangle Sprite::GetBounds()
     Rectangle destRect = GetDestRect();
     Vector2 destOrigin = GetDestOrigin(destRect);
     return DestPro(destRect, destOrigin);
+};
+
+Vector2 Sprite::GetSpriteSourceSize()
+{
+    return { sourceRect.width, sourceRect.height };
 };
