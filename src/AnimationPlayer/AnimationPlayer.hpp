@@ -47,7 +47,7 @@ public:
     AnimationPlayer();
 
     void AddAnimation(const std::string &animationName, const AnimationSequence &aniSeq);
-
+    void AddAnimation(const AnimationSequence &aniSeq);
     void PlayAnimation(const std::string &animationName);
     void PlayAnimation(const AnimationSequence &animationSeq);
     std::string_view GetCurrentAnimationName();

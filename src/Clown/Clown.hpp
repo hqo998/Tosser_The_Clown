@@ -20,7 +20,10 @@ class Clown : public Sprite
 {
     AnimationPlayer AnimPlayer;
 
-    ClownState currentState = IDLE;
+    ClownState currentState {};
+
+    void SwitchState(ClownState toState);
+    void LoadAnims();
 
 public:
     Clown();
@@ -28,4 +31,6 @@ public:
     void Update();
 
     void handleEvent();
+
+
 };

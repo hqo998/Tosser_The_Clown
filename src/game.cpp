@@ -1,16 +1,8 @@
 #include "raylib.h"
 
 #include "DisplayBridge/DisplayBridge.hpp"
-
 #include "Clown/Clown.hpp"
-
 #include <print>
-
-void onMouseLeftPressed()
-{
-    std::println("play ani");
-    // pclownAni.PlayAnimation("Throw");
-};
 
 int main()
 {
@@ -34,7 +26,6 @@ int main()
 
     while (!WindowShouldClose())
     {
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) onMouseLeftPressed();
 
         clown.Update();
 

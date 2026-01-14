@@ -2,14 +2,23 @@
 
 #include <raylib.h>
 
-// #include <print>
+#include <print>
 
 AnimationPlayer::AnimationPlayer() {
 };
 
 void AnimationPlayer::AddAnimation(const std::string &animationName, const AnimationSequence &aniSeq)
 {
-    savedAnimations.try_emplace(animationName, aniSeq);
+    const auto& result = savedAnimations.try_emplace(animationName, aniSeq);
+    if (!result.second)
+    {
+        std::println("[WARNING] - Animation Player FAILED to add '{}' | Might of already been added.", result.first->first);
+    }
+};
+
+void AnimationPlayer::AddAnimation(const AnimationSequence &aniSeq)
+{
+    AddAnimation(aniSeq.name, aniSeq);
 };
 
 void AnimationPlayer::PlayAnimation(const AnimationSequence &animationSeq)
@@ -20,9 +29,9 @@ void AnimationPlayer::PlayAnimation(const AnimationSequence &animationSeq)
 
 void AnimationPlayer::PlayAnimation(const std::string &animationName)
 {
+    finished = false;
     currentAnimation = std::make_unique<AnimationSequence>(savedAnimations.at(animationName));
     currentFrameIndex = currentAnimation->startFrame;
-    finished = false;
     holdCount = 0;
     lastHoldIndex = -1;
 };
