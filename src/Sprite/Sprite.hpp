@@ -39,6 +39,7 @@ public:
     Vector2 position {0, 0};
     Vector2 scale {1, 1};
 
+    bool flip { true };
 
     // functions
     Sprite();

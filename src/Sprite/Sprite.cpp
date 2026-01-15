@@ -4,7 +4,7 @@
 
 // use class heritance for other sprites as this as parent.
 
-Sprite::Sprite() { };
+Sprite::Sprite() {};
 
 Sprite::Sprite(const std::string &texturePath)
 {
@@ -37,7 +37,7 @@ void Sprite::LoadSprite(const std::string &texturePath)
     SetOrigin(O_TOP_LEFT);
 };
 
-void Sprite::LoadSprite(const std::string& texturePath, int spriteTilesX, int spriteTilesY)
+void Sprite::LoadSprite(const std::string &texturePath, int spriteTilesX, int spriteTilesY)
 {
     LoadSprite(texturePath);
     this->spriteFramesX = spriteTilesX;
@@ -95,9 +95,9 @@ void Sprite::SetOrigin(Origins origin_value)
 
 Rectangle Sprite::DestPro(Rectangle dest, Vector2 origin)
 {
-     dest.x = dest.x - origin.x;
-     dest.y = dest.y - origin.y;
-     return dest;
+    dest.x = dest.x - origin.x;
+    dest.y = dest.y - origin.y;
+    return dest;
 };
 
 Rectangle Sprite::GetDestRect()
@@ -115,7 +115,10 @@ void Sprite::Draw()
     Rectangle destRect = GetDestRect();
     Vector2 destOrigin = GetDestOrigin(destRect);
 
-    DrawTexturePro(texture, sourceRect, destRect, destOrigin, 0.f, WHITE);
+    DrawTexturePro(texture,
+                   {sourceRect.x, sourceRect.y, flip ? -sourceRect.width : sourceRect.width, sourceRect.height},
+                   destRect,
+                   destOrigin, 0.f, WHITE);
 };
 
 void Sprite::DrawRect(float thickness)
@@ -127,7 +130,6 @@ void Sprite::DrawRect(float thickness)
 
     destRect = DestPro(destRect, destOrigin);
     DrawRectangleLinesEx(destRect, thickness, RED);
-
 };
 
 Rectangle Sprite::GetBounds()
@@ -139,5 +141,5 @@ Rectangle Sprite::GetBounds()
 
 Vector2 Sprite::GetSpriteSourceSize()
 {
-    return { sourceRect.width, sourceRect.height };
+    return {sourceRect.width, sourceRect.height};
 };
