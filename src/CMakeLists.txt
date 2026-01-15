@@ -3,7 +3,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     Sprite/Sprite.cpp
     DisplayBridge/DisplayBridge.cpp
     AnimationPlayer/AnimationPlayer.cpp
-    Clown/Clown.cpp
+    Clown.cpp
     )
 
 

@@ -1,7 +1,7 @@
 #pragma  once
 
-#include "../AnimationPlayer/AnimationPlayer.hpp"
-#include "../Sprite/Sprite.hpp"
+#include "AnimationPlayer/AnimationPlayer.hpp"
+#include "Sprite/Sprite.hpp"
 
 enum ClownState
 {

@@ -1,7 +1,7 @@
 #include "raylib.h"
 
 #include "DisplayBridge/DisplayBridge.hpp"
-#include "Clown/Clown.hpp"
+#include "Clown.hpp"
 #include <print>
 
 int main()
