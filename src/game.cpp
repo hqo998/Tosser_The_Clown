@@ -22,10 +22,12 @@ int main()
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
     #pragma endregion
 
+    const float &canvasWidth = canvasTarget.canvasWidth;
+    const float &canvasHeight = canvasTarget.canvasHeight;
 
     Sprite stage {"resources/tmp/Stage.png"};
     stage.SetOrigin(O_BOTTOM_CENTER);
-    stage.position = {1080/2, 1080};
+    stage.position = {canvasWidth/2, canvasHeight};
     stage.scale = {.7f, .7f};
 
     Clown clown;
