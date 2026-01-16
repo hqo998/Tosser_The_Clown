@@ -37,12 +37,12 @@ AnimationSequence clownAniTalk = {
 };
 #pragma endregion
 
-void Clown::LoadAnims()
-{
-    AnimPlayer.AddAnimation(ClownAniThrow);
-    AnimPlayer.AddAnimation(clownAniAim);
-    AnimPlayer.AddAnimation(clownAniTalk);
-};
+// void Clown::LoadAnims()
+// {
+//     AnimPlayer.AddAnimation(ClownAniThrow);
+//     AnimPlayer.AddAnimation(clownAniAim);
+//     AnimPlayer.AddAnimation(clownAniTalk);
+// };
 
 Clown::Clown()  : Sprite("resources/tmp/TosserSpritesheetTest.png", 9, 2)
 {
@@ -50,33 +50,33 @@ Clown::Clown()  : Sprite("resources/tmp/TosserSpritesheetTest.png", 9, 2)
     position = {540, 540};
     SetOrigin(O_CENTER);
 
-    LoadAnims();
+    // LoadAnims();
 
-    SwitchState(IDLE);
+    SwitchState(ClownState::IDLE);
 };
 
 void Clown::Update()
 {
     switch (currentState)
     {
-    case IDLE:
+    case ClownState::IDLE:
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
-            SwitchState(AIM);
+            SwitchState(ClownState::AIM);
         }
         break;
 
-    case AIM:
+    case ClownState::AIM:
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
         {
-            SwitchState(THROW);
+            SwitchState(ClownState::THROW);
         }
         break;
 
-    case THROW:
+    case ClownState::THROW:
         if (AnimPlayer.Finished())
         {
-            SwitchState(IDLE);
+            SwitchState(ClownState::IDLE);
         }
         break;
     }
@@ -91,13 +91,13 @@ void Clown::SwitchState(ClownState toState)
 
     switch (toState)
     {
-    case IDLE:
+    case ClownState::IDLE:
         AnimPlayer.PlayAnimation(clownAniTalk);
         break;
-    case AIM:
+    case ClownState::AIM:
         AnimPlayer.PlayAnimation(clownAniAim);
         break;
-    case THROW:
+    case ClownState::THROW:
         AnimPlayer.PlayAnimation(ClownAniThrow);
         break;
     }

@@ -4,6 +4,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     DisplayBridge/DisplayBridge.cpp
     AnimationPlayer/AnimationPlayer.cpp
     Clown.cpp
+    Crowd.cpp
     )
 
 

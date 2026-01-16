@@ -1,7 +1,9 @@
 #include "raylib.h"
 
 #include "DisplayBridge/DisplayBridge.hpp"
+#include "Sprite/Sprite.hpp"
 #include "Clown.hpp"
+#include "Crowd.hpp"
 #include <print>
 
 int main()
@@ -21,20 +23,30 @@ int main()
     #pragma endregion
 
 
+    Sprite stage {"resources/tmp/Stage.png"};
+    stage.SetOrigin(O_BOTTOM_CENTER);
+    stage.position = {1080/2, 1080};
+    stage.scale = {.7f, .7f};
 
     Clown clown;
+    CrowdPerson crowd;
 
     while (!WindowShouldClose())
     {
 
         clown.Update();
+        crowd.Update();
 
         #pragma region CANVAS_RENDER
         canvasTarget.BeginTextureDraw();
         {
             ClearBackground(LIGHTGRAY);
+            crowd.Draw();
+            stage.Draw();
             clown.Draw();
-            clown.DrawRect(5);
+
+            
+
         }
         canvasTarget.EndTextureDraw();
         #pragma endregion

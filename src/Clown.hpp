@@ -3,14 +3,14 @@
 #include "AnimationPlayer/AnimationPlayer.hpp"
 #include "Sprite/Sprite.hpp"
 
-enum ClownState
+enum class ClownState
 {
     IDLE,
     AIM,
     THROW
 };
 
-enum ClownCommands
+enum class ClownCommands
 {
     TRY_IDLE,
     TRY_THROW
@@ -23,7 +23,7 @@ class Clown : public Sprite
     ClownState currentState {};
 
     void SwitchState(ClownState toState);
-    void LoadAnims();
+    // void LoadAnims();
 
 public:
     Clown();
