@@ -19,7 +19,7 @@ int main()
 
     SetWindowMinSize(300, 300);
     // ToggleBorderlessWindowed();
-    // SetTargetFPS(60);
+    SetTargetFPS(60);
 
     DisplayBridge canvasTarget(1920, 1080);
     canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
@@ -36,12 +36,14 @@ int main()
 
     Clown clown;
     CrowdPerson crowd;
-
+    
     while (!WindowShouldClose())
     {
 
         clown.Update();
         crowd.Update();
+
+        std::println("{}", clown.IsOnScreen({canvasWidth, canvasHeight}));
 
         #pragma region CANVAS_RENDER
         canvasTarget.BeginTextureDraw();
