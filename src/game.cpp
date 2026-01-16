@@ -45,8 +45,6 @@ int main()
             stage.Draw();
             clown.Draw();
 
-            
-
         }
         canvasTarget.EndTextureDraw();
         #pragma endregion

@@ -15,8 +15,8 @@ class DisplayBridge
 {
 public:
     // variables
-    float canvasWidth{};
-    float canvasHeight{};
+    const float canvasWidth{};
+    const float canvasHeight{};
 
     float displayWidth{};
     float displayHeight{};

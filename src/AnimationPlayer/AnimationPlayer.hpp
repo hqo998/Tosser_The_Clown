@@ -20,7 +20,7 @@ const struct frameIndex
 
 struct AnimationSequence
 {
-    std::string name;
+    const std::string name;
     const frameIndex startFrame;
     const int Length;
     const float speedFPS;
