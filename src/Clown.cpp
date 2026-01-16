@@ -46,9 +46,9 @@ AnimationSequence clownAniTalk = {
 
 Clown::Clown()  : Sprite("resources/tmp/TosserSpritesheetTest.png", 9, 2)
 {
-    scale = {2.f, 2.f};
-    position = {540, 540};
-    SetOrigin(O_CENTER);
+    scale = {3.f, 3.f}; // stop usingg magic numbers and base off canvas dimensions
+    position = {540, 1080}; // need to remove hardcoding and base it off canvas dimensions
+    SetOrigin(O_BOTTOM_CENTER);
 
     // LoadAnims();
 
