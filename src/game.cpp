@@ -2,7 +2,7 @@
 
 #include "DisplayBridge/DisplayBridge.hpp"
 #include "Sprite/Sprite.hpp"
-#include "Clown.hpp"
+#include "Entities.hpp"
 #include "Crowd.hpp"
 #include <print>
 
