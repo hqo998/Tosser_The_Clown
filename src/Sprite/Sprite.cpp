@@ -115,6 +115,8 @@ void Sprite::Draw()
     Rectangle destRect = GetDestRect();
     Vector2 destOrigin = GetDestOrigin(destRect);
 
+    // if (!IsOnScreen()) return; // add cull check in sprite draw
+
     DrawTexturePro(texture,
                    {sourceRect.x, sourceRect.y, flip ? -sourceRect.width : sourceRect.width, sourceRect.height},
                    destRect,
@@ -142,4 +144,10 @@ Rectangle Sprite::GetBounds()
 Vector2 Sprite::GetSpriteSourceSize()
 {
     return {sourceRect.width, sourceRect.height};
+};
+
+bool Sprite::IsOnScreen(Vector2 screenDimensions)
+{
+    return CheckCollisionRecs(GetBounds(),
+                              {0, 0, screenDimensions.x, screenDimensions.y});
 };

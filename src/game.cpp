@@ -11,15 +11,19 @@ int main()
     #pragma region SCREEN_INIT
     int screenWidth{500};
     int screenHeight{500};
+
+    
+    
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT | FLAG_WINDOW_HIGHDPI);
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
 
-    DisplayBridge canvasTarget(1080, 1080);
-    canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
-
+    SetWindowMinSize(300, 300);
     // ToggleBorderlessWindowed();
     SetTargetFPS(60);
-    SetWindowMinSize(300, 300);
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
+
+    DisplayBridge canvasTarget(1920, 1080);
+    canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
+
     #pragma endregion
 
     const float &canvasWidth = canvasTarget.canvasWidth;
@@ -32,12 +36,14 @@ int main()
 
     Clown clown;
     CrowdPerson crowd;
-
+    
     while (!WindowShouldClose())
     {
 
         clown.Update();
         crowd.Update();
+
+        std::println("{}", clown.IsOnScreen({canvasWidth, canvasHeight}));
 
         #pragma region CANVAS_RENDER
         canvasTarget.BeginTextureDraw();

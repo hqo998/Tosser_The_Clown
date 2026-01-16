@@ -12,7 +12,7 @@
 // how long to hold each frame
 // what frame to start to play
 
-const struct frameIndex
+struct frameIndex
 {
     int x;
     int y;
