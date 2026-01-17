@@ -1,4 +1,4 @@
-#include "DisplayBridge.hpp"
+#include "Application.hpp"
 
 #include <raylib.h>
 
@@ -70,21 +70,21 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
 
     switch (mode)
     {
-    case NATIVE:
+    case bridgeMode::NATIVE:
         destRecTarget = {0, 0,
                          canvasWidth,
                          canvasHeight};
         break;
-    case STRETCH_TO_SCREEN:
+    case bridgeMode::STRETCH_TO_SCREEN:
         break;
-    case CENTRE_TO_SCREEN:
+    case bridgeMode::CENTRE_TO_SCREEN:
         originTarget = {canvasWidth / 2, canvasHeight / 2};
 
         destRecTarget = {displayWidth / 2, displayHeight / 2,
                          (canvasWidth),
                          (canvasHeight)};
         break;
-    case SCALE_MAINTAIN_SCREEN:
+    case bridgeMode::SCALE_MAINTAIN_SCREEN:
         heightScaledToWidth = (displayWidth / canvasWidth) * canvasHeight;
 
         originTarget = {displayWidth / 2, heightScaledToWidth / 2};
@@ -94,7 +94,7 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
                          heightScaledToWidth};
         if (heightScaledToWidth < displayHeight)
             break;
-    case SCALE_HEIGHT_CENTRE_TO_SCREEN:
+    case bridgeMode::SCALE_HEIGHT_CENTRE_TO_SCREEN:
     default:
         widthScaledToHeight = (displayHeight / canvasHeight) * canvasWidth;
 

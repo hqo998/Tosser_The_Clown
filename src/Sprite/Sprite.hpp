@@ -53,7 +53,8 @@ public:
     void SetFrame(frameIndex);
     void Draw();
     void DrawRect(float thickness);
-    bool IsOnScreen(Vector2 screenDimensions);
+    bool IsOnScreen();
+
     Vector2 GetSpriteSourceSize();
 
     Rectangle GetBounds();

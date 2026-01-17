@@ -1,6 +1,9 @@
 #include "Sprite.hpp"
+#include "../Application/Application.hpp"
 
 #include "raylib.h"
+
+
 
 // use class heritance for other sprites as this as parent.
 
@@ -146,8 +149,9 @@ Vector2 Sprite::GetSpriteSourceSize()
     return {sourceRect.width, sourceRect.height};
 };
 
-bool Sprite::IsOnScreen(Vector2 screenDimensions)
+bool Sprite::IsOnScreen()
 {
+    DisplayBridge& canvas = Application::Get().GetCanvas();
     return CheckCollisionRecs(GetBounds(),
-                              {0, 0, screenDimensions.x, screenDimensions.y});
+                              {0, 0, canvas.canvasWidth, canvas.canvasHeight});
 };

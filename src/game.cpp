@@ -1,6 +1,6 @@
 #include "raylib.h"
 
-#include "Application/DisplayBridge.hpp"
+// #include "Application/DisplayBridge.hpp"
 #include "Application/Application.hpp"
 #include "Sprite/Sprite.hpp"
 #include "Entities.hpp"
@@ -63,7 +63,7 @@ int main()
         {
             ClearBackground(BLACK); // Background if aspect ratios don't match
 
-            app.GetCanvas().DrawBridge(SCALE_MAINTAIN_SCREEN);
+            app.GetCanvas().DrawBridge(bridgeMode::SCALE_MAINTAIN_SCREEN);
 
             DrawFPS(10, 10);
         }
