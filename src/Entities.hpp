@@ -10,13 +10,13 @@ enum class ClownState
     IDLE,
     AIM,
     THROW
-};
+}; // ClownState
 
 enum class ClownCommands
 {
     TRY_IDLE,
     TRY_THROW
-};
+}; // ClownCommands
 
 class Clown : public Sprite
 {
@@ -33,16 +33,17 @@ public:
     void Update();
 
     void handleEvent();
-};
+}; // Clown
+
 #pragma endregion
 
-#pragma region Crowd
+#pragma region CROWD
 enum class CrowdState
 {
     IDLE,
     THROW,
     RELEASE
-};
+}; // CrowdState
 
 class CrowdPerson : public Sprite
 {
@@ -59,10 +60,18 @@ public:
     void handleEvent();
 
 
-};
+}; // CrowdPerson
 
-class Crowd
+// The `CrowdManager` class is managing a collection of `CrowdPerson` objects. This class acts as a manager for handling and controlling a group of `CrowdPerson` instances.
+class CrowdManager
 {
+    std::vector<std::unique_ptr<CrowdPerson>> people;
+    // maybe decouple each person from having its own animation player
+public:
+    void AddPerson();
 
-};
+    void Update();
+    void Draw();
+}; // Crowd
+
 #pragma endregion

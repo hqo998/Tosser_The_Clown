@@ -1,5 +1,7 @@
+#include "Application/Application.hpp"
 #include "Entities.hpp"
 
+#include <raymath.h>
 #include <print>
 
 // talks on main menu screen
@@ -46,8 +48,12 @@ AnimationSequence clownAniTalk = {
 
 Clown::Clown()  : Sprite("resources/tmp/TosserSpritesheetTest.png", 9, 2)
 {
-    scale = {3.f, 3.f}; // stop usingg magic numbers and base off canvas dimensions
-    position = {540, 1080}; // need to remove hardcoding and base it off canvas dimensions
+    Vector2 relativeScale = GetRelativeScale();
+    float adjustedScale = (relativeScale.x<relativeScale.y) ? relativeScale.x : relativeScale.y;
+    float uniform_scale = .9f * adjustedScale;
+
+    scale = {uniform_scale, uniform_scale}; // stop using magic numbers and base off canvas dimensions
+    position = {(app.GetCanvas().canvasWidth / 2), app.GetCanvas().canvasHeight}; // need to remove hardcoding and base it off canvas dimensions
     SetOrigin(O_BOTTOM_CENTER);
 
     // LoadAnims();

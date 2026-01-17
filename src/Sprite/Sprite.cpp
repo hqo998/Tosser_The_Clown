@@ -118,7 +118,7 @@ void Sprite::Draw()
     Rectangle destRect = GetDestRect();
     Vector2 destOrigin = GetDestOrigin(destRect);
 
-    // if (!IsOnScreen()) return; // add cull check in sprite draw
+    if (!IsOnScreen()) return; // add cull check in sprite draw
 
     DrawTexturePro(texture,
                    {sourceRect.x, sourceRect.y, flip ? -sourceRect.width : sourceRect.width, sourceRect.height},
@@ -154,4 +154,15 @@ bool Sprite::IsOnScreen()
     DisplayBridge& canvas = Application::Get().GetCanvas();
     return CheckCollisionRecs(GetBounds(),
                               {0, 0, canvas.canvasWidth, canvas.canvasHeight});
+};
+
+Vector2 Sprite::GetRelativeScale()
+{
+    float canvasSizeX = app.GetCanvas().GetCanvasSize().x;
+    float adjustedScaleX = (canvasSizeX / (GetSpriteSourceSize().x));
+
+    float canvasSizeY = app.GetCanvas().GetCanvasSize().y;
+    float adjustedScaleY = (canvasSizeY / (GetSpriteSourceSize().y));
+
+    return {adjustedScaleX, adjustedScaleY};
 };

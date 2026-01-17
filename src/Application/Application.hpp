@@ -42,8 +42,9 @@ public:
     void DrawBridge(bridgeMode mode = bridgeMode::SCALE_HEIGHT_CENTRE_TO_SCREEN);
 
     void SetDisplaySize(float dispWidth, float dispHeight);
-    Vector2 GetMousePositionScaled();
-    Vector2 GetCanvasSize();
+
+    [[nodiscard]] Vector2 GetMousePositionCanvas();
+    [[nodiscard]] Vector2 GetCanvasSize();
 
     void DrawDebugResolutions();
 
@@ -86,10 +87,14 @@ public:
         canvas = std::make_unique<DisplayBridge>(width, height);
     }
 
-    inline DisplayBridge& GetCanvas()
+    [[nodiscard]] inline DisplayBridge& GetCanvas()
     {
         return *canvas;
     }
 }; // Application
+
+// The line `inline Application& app = Application::Get();` is creating a global variable named `app` that is initialized with a reference to the `Application` singleton instance obtained by calling the static `Get()` method of the `Application` class.
+inline Application& app = Application::Get();
+
 #pragma endregion // Application
 

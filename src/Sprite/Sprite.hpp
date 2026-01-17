@@ -31,9 +31,9 @@ private:
     int spriteFramesY {1};
     // functions
 
-    Rectangle GetDestRect();
-    Vector2 GetDestOrigin(Rectangle rect);
-    Rectangle DestPro(Rectangle dest, Vector2 origin);
+    [[nodiscard]] Rectangle GetDestRect();
+    [[nodiscard]] Vector2 GetDestOrigin(Rectangle rect);
+    [[nodiscard]] Rectangle DestPro(Rectangle dest, Vector2 origin);
 public:
     // variables
     Vector2 position {0, 0};
@@ -55,7 +55,9 @@ public:
     void DrawRect(float thickness);
     bool IsOnScreen();
 
-    Vector2 GetSpriteSourceSize();
+    [[nodiscard]] Vector2 GetSpriteSourceSize();
 
-    Rectangle GetBounds();
+    [[nodiscard]] Vector2 GetRelativeScale();
+
+    [[nodiscard]] Rectangle GetBounds();
 };

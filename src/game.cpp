@@ -19,9 +19,9 @@ int main()
     // ToggleBorderlessWindowed();
     SetTargetFPS(60);
 
-    Application &app = Application::Get(); // application singleton for window info and other systems in future
+    // Application &app = Application::Get(); // application singleton for window info and other systems in future
 
-    app.StartUp(1920, 1080);
+    app.StartUp(1000, 1000);
 
 
     #pragma endregion
@@ -32,10 +32,13 @@ int main()
     Sprite stage {"resources/tmp/Stage.png"};
     stage.SetOrigin(O_BOTTOM_CENTER);
     stage.position = {canvasWidth/2, canvasHeight};
-    stage.scale = {.7f, .7f};
+    Vector2 relativeScale = stage.GetRelativeScale();
+    float adjustedScale = (relativeScale.x<relativeScale.y) ? relativeScale.x : relativeScale.y;
+    float uniform_scale = 1.f * adjustedScale;
+    stage.scale = {uniform_scale, uniform_scale};
 
-    Clown clown;
-    CrowdPerson crowd;
+    Clown clown;{}
+    CrowdPerson crowdPerson;
 
     while (!WindowShouldClose())
     {
@@ -43,15 +46,14 @@ int main()
                                         static_cast<float>(GetScreenHeight()));
 
         clown.Update();
-        crowd.Update();
-
-        // std::println("{}", clown.IsOnScreen({canvasWidth, canvasHeight}));
+        crowdPerson.Update();
 
         #pragma region CANVAS_RENDER
         app.GetCanvas().BeginTextureDraw();
         {
             ClearBackground(LIGHTGRAY);
-            crowd.Draw();
+            crowdPerson.Draw();
+
             stage.Draw();
             clown.Draw();
         }

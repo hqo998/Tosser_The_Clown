@@ -14,16 +14,22 @@ AnimationSequence CrowdIdle =
 
 #pragma endregion
 
+#pragma region CROWD_PERSON
+
 CrowdPerson::CrowdPerson() : Sprite("resources/CrowdThrowers/CrowdMemberBASE_spritesheet.png", 13, 2)
 {
-    scale = {2.f, 2.f};
+    Vector2 relativeScale = GetRelativeScale();
+    float adjustedScale = (relativeScale.x < relativeScale.y) ? relativeScale.x : relativeScale.y;
+    float uniform_scale = .3f * adjustedScale;
+
+    scale = {uniform_scale, uniform_scale};
     position = {540, 540};
     SetOrigin(O_CENTER);
 
     // LoadAnims();
 
     SwitchState(CrowdState::IDLE);
-};
+}; // CrowdPerson
 
 void CrowdPerson::Update()
 {
@@ -41,7 +47,7 @@ void CrowdPerson::Update()
 
     AnimPlayer.Update();
     SetFrame(AnimPlayer.GetCurrentFrameIndex());
-};
+}; // Update
 
 void CrowdPerson::SwitchState(CrowdState toState)
 {
@@ -57,4 +63,24 @@ void CrowdPerson::SwitchState(CrowdState toState)
     case CrowdState::RELEASE:
         break;
     }
-};
+}; // SwitchState
+
+#pragma endregion
+
+#pragma region CROWD_MANAGER
+
+void CrowdManager::Update()
+{
+    for (std::unique_ptr<CrowdPerson> &person : people)
+    {
+        person->Update();
+    }
+} // Update
+
+void CrowdManager::Draw()
+{
+    for (std::unique_ptr<CrowdPerson> &person : people)
+    {
+        person->Draw();
+    }
+}; // Draw

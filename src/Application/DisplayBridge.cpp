@@ -117,7 +117,7 @@ void DisplayBridge::DrawDebugResolutions()
     DrawText(TextFormat("Display: x=%f y=%f", displayWidth, displayHeight), 10, (int)displayHeight - 20, 20, GREEN);
 };
 
-Vector2 DisplayBridge::GetMousePositionScaled()
+Vector2 DisplayBridge::GetMousePositionCanvas()
 {
     Vector2 realMousePosition = GetMousePosition();
 
