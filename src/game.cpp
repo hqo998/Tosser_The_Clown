@@ -1,6 +1,7 @@
 #include "raylib.h"
 
 #include "Application/DisplayBridge.hpp"
+#include "Application/Application.hpp"
 #include "Sprite/Sprite.hpp"
 #include "Entities.hpp"
 #include <print>
@@ -18,13 +19,15 @@ int main()
     // ToggleBorderlessWindowed();
     SetTargetFPS(60);
 
-    DisplayBridge canvasTarget(1920, 1080);
-    canvasTarget.SetTexFilter(TEXTURE_FILTER_BILINEAR);
+    Application &app = Application::Get(); // application singleton for window info and other systems in future
+
+    app.StartUp(1920, 1080);
+
 
     #pragma endregion
 
-    const float &canvasWidth = canvasTarget.canvasWidth;
-    const float &canvasHeight = canvasTarget.canvasHeight;
+    const float &canvasWidth = app.GetCanvas().canvasWidth;
+    const float &canvasHeight = app.GetCanvas().canvasHeight;
 
     Sprite stage {"resources/tmp/Stage.png"};
     stage.SetOrigin(O_BOTTOM_CENTER);
@@ -36,22 +39,23 @@ int main()
 
     while (!WindowShouldClose())
     {
+        app.GetCanvas().SetDisplaySize(static_cast<float>(GetScreenWidth()),
+                                        static_cast<float>(GetScreenHeight()));
 
         clown.Update();
         crowd.Update();
 
-        std::println("{}", clown.IsOnScreen({canvasWidth, canvasHeight}));
+        // std::println("{}", clown.IsOnScreen({canvasWidth, canvasHeight}));
 
         #pragma region CANVAS_RENDER
-        canvasTarget.BeginTextureDraw();
+        app.GetCanvas().BeginTextureDraw();
         {
             ClearBackground(LIGHTGRAY);
             crowd.Draw();
             stage.Draw();
             clown.Draw();
-
         }
-        canvasTarget.EndTextureDraw();
+        app.GetCanvas().EndTextureDraw();
         #pragma endregion
 
         #pragma region SCREEN_RENDER
@@ -59,16 +63,13 @@ int main()
         {
             ClearBackground(BLACK); // Background if aspect ratios don't match
 
-            canvasTarget.SetDisplaySize(static_cast<float>(GetScreenWidth()),
-                                        static_cast<float>(GetScreenHeight()));
-            canvasTarget.DrawBridge(SCALE_MAINTAIN_SCREEN);
+            app.GetCanvas().DrawBridge(SCALE_MAINTAIN_SCREEN);
 
             DrawFPS(10, 10);
         }
         EndDrawing();
         #pragma endregion
     }
-
 
     CloseWindow();
 }
