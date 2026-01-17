@@ -1,7 +1,8 @@
 target_sources(${PROJECT_NAME} PRIVATE
     game.cpp
     Sprite/Sprite.cpp
-    DisplayBridge/DisplayBridge.cpp
+    Application/DisplayBridge.cpp
+    Application/Application.cpp
     AnimationPlayer/AnimationPlayer.cpp
     Clown.cpp
     Crowd.cpp

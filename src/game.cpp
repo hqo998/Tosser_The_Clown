@@ -1,9 +1,8 @@
 #include "raylib.h"
 
-#include "DisplayBridge/DisplayBridge.hpp"
+#include "Application/DisplayBridge.hpp"
 #include "Sprite/Sprite.hpp"
 #include "Entities.hpp"
-#include "Crowd.hpp"
 #include <print>
 
 int main()
@@ -12,8 +11,6 @@ int main()
     int screenWidth{500};
     int screenHeight{500};
 
-    
-    
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT | FLAG_WINDOW_HIGHDPI);
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
 
@@ -36,7 +33,7 @@ int main()
 
     Clown clown;
     CrowdPerson crowd;
-    
+
     while (!WindowShouldClose())
     {
 
