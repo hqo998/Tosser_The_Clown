@@ -86,6 +86,8 @@ public:
 class AimGuide
 {
     std::vector<Sprite> guidePoints;
+
+    Texture2D texture;
 };
 
 
