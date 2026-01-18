@@ -123,7 +123,7 @@ void CrowdManager::AddPerson()
     float posX = randX*app.GetCanvas().canvasWidth;
 
     // (rand * height - half the height) + 1/3 of the way down the canvas
-    float randY = GetRandomValue(10, 90)/100.f;
-    float posY = .3f*(randY*app.GetCanvas().canvasHeight - (app.GetCanvas().canvasHeight / 2)) + (app.GetCanvas().canvasHeight * .4f);
+    // float randY = GetRandomValue(10, 90)/100.f;
+    float posY = /* .3f*(randY*app.GetCanvas().canvasHeight - (app.GetCanvas().canvasHeight / 2)) + */ (app.GetCanvas().canvasHeight * .4f);
     people.back()->position = {posX, posY};
 }; // AddPerson
