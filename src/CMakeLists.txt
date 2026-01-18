@@ -6,6 +6,7 @@ target_sources(${PROJECT_NAME} PRIVATE
     AnimationPlayer/AnimationPlayer.cpp
     Clown.cpp
     Crowd.cpp
+    AimGuider.cpp
     )
 
 

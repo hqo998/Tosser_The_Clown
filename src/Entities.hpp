@@ -80,3 +80,13 @@ public:
 }; // Crowd
 
 #pragma endregion
+
+#pragma region AIM_GUIDER
+// Use a list of sprites that all share an aim guide texture to generate points and render them according to an offset.
+class AimGuide
+{
+    std::vector<Sprite> guidePoints;
+};
+
+
+#pragma endregion
