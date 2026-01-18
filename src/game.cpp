@@ -1,27 +1,29 @@
 #include "raylib.h"
 
-// #include "Application/DisplayBridge.hpp"
 #include "Application/Application.hpp"
 #include "Sprite/Sprite.hpp"
 #include "Entities.hpp"
+
 #include <print>
+#include <chrono>
 
 int main()
 {
+    SetRandomSeed(static_cast<unsigned int>(std::chrono::system_clock::now().time_since_epoch().count()));
     #pragma region SCREEN_INIT
-    int screenWidth{500};
-    int screenHeight{500};
+    int screenWidth{1280};
+    int screenHeight{720};
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT | FLAG_WINDOW_HIGHDPI);
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
 
     SetWindowMinSize(300, 300);
     // ToggleBorderlessWindowed();
-    SetTargetFPS(60);
+    // SetTargetFPS(60);
 
     // Application &app = Application::Get(); // application singleton for window info and other systems in future
 
-    app.StartUp(1000, 1000);
+    app.StartUp(1920, 1000);
 
 
     #pragma endregion
@@ -37,8 +39,12 @@ int main()
     float uniform_scale = 1.f * adjustedScale;
     stage.scale = {uniform_scale, uniform_scale};
 
-    Clown clown;{}
-    CrowdPerson crowdPerson;
+    Clown clown;
+    CrowdManager crowd;
+    for (int i {}; i < 10; i++)
+    {
+        crowd.AddPerson();
+    }
 
     while (!WindowShouldClose())
     {
@@ -46,13 +52,13 @@ int main()
                                         static_cast<float>(GetScreenHeight()));
 
         clown.Update();
-        crowdPerson.Update();
+        crowd.Update();
 
         #pragma region CANVAS_RENDER
         app.GetCanvas().BeginTextureDraw();
         {
             ClearBackground(LIGHTGRAY);
-            crowdPerson.Draw();
+            crowd.Draw();
 
             stage.Draw();
             clown.Draw();

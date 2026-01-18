@@ -45,6 +45,8 @@ enum class CrowdState
     RELEASE
 }; // CrowdState
 
+// make the crowd sprites share one texture
+
 class CrowdPerson : public Sprite
 {
     AnimationPlayer AnimPlayer;
@@ -53,7 +55,7 @@ class CrowdPerson : public Sprite
     void SwitchState(CrowdState toState);
     // void LoadAnims();
 public:
-    CrowdPerson();
+    CrowdPerson(Texture2D sharedTex);
 
     void Update();
 
@@ -66,8 +68,11 @@ public:
 class CrowdManager
 {
     std::vector<std::unique_ptr<CrowdPerson>> people;
+    Texture2D texture;
     // maybe decouple each person from having its own animation player
 public:
+    CrowdManager();
+    ~CrowdManager();
     void AddPerson();
 
     void Update();

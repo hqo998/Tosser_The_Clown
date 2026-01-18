@@ -20,6 +20,28 @@ Sprite::Sprite(const std::string &texturePath, int spriteFramesX, int spriteFram
     LoadSprite(texturePath);
 };
 
+Sprite::Sprite(Texture2D& sharedTexture)
+{
+    LoadSprite(sharedTexture);
+};
+
+Sprite::Sprite(Texture2D& sharedTexture, int spriteFramesX, int spriteFramesY)
+    : spriteFramesX{spriteFramesX}, spriteFramesY{spriteFramesY}
+{
+    LoadSprite(sharedTexture);
+};
+
+void Sprite::LoadSprite(Texture2D& sharedTexture)
+{
+    texture = sharedTexture;
+
+    sourceRect = {0.f, 0.f,
+                  static_cast<float>(texture.width) / spriteFramesX,
+                  static_cast<float>(texture.height) / spriteFramesY};
+
+    SetOrigin(O_TOP_LEFT);
+};
+
 Sprite::~Sprite()
 {
     if (textureLoaded)

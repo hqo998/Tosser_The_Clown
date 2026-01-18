@@ -34,6 +34,10 @@ private:
     [[nodiscard]] Rectangle GetDestRect();
     [[nodiscard]] Vector2 GetDestOrigin(Rectangle rect);
     [[nodiscard]] Rectangle DestPro(Rectangle dest, Vector2 origin);
+
+    void LoadSprite(const std::string& texturePath);
+    void LoadSprite(const std::string& texturePath, int spriteFramesX, int spriteFramesY);
+    void LoadSprite(Texture2D& sharedTexture);
 public:
     // variables
     Vector2 position {0, 0};
@@ -45,9 +49,11 @@ public:
     Sprite();
     Sprite(const std::string& texturePath);
     Sprite(const std::string& texturePath, int spriteFramesX, int spriteFramesY);
+    Sprite(Texture2D& sharedTexture);
+    Sprite(Texture2D& sharedTexture, int spriteFramesX, int spriteFramesY);
     ~Sprite();
-    void LoadSprite(const std::string& texturePath);
-    void LoadSprite(const std::string& texturePath, int spriteFramesX, int spriteFramesY);
+    // void LoadSprite(const std::string& texturePath);
+    // void LoadSprite(const std::string& texturePath, int spriteFramesX, int spriteFramesY);
     void SetOrigin(Origins origin_value);
     void SetFrame(int frameIndexX, int frameIndexY);
     void SetFrame(frameIndex);
