@@ -9,7 +9,7 @@ AnimationPlayer::AnimationPlayer() {
 
 void AnimationPlayer::AddAnimation(const std::string &animationName, const AnimationSequence &aniSeq)
 {
-    const auto& result = savedAnimations.try_emplace(animationName, aniSeq);
+    const auto &result = savedAnimations.try_emplace(animationName, aniSeq);
     if (!result.second)
     {
         std::println("[WARNING] - Animation Player FAILED to add '{}' | Might of already been added.", result.first->first);
@@ -43,6 +43,8 @@ std::string_view AnimationPlayer::GetCurrentAnimationName()
 
 frameIndex AnimationPlayer::GetCurrentFrameIndex()
 {
+    if (!currentAnimation)
+        return {};
     return currentFrameIndex;
 };
 
@@ -66,37 +68,35 @@ void AnimationPlayer::Update()
         timer -= timePerFrame;
         currentFrameIndex.x++;
 
+        // check for custom frame holds for accurate timing
         if (currentAnimation->frameHolds.contains(currentFrameIndex.x - 1) && !holdCount && lastHoldIndex != currentFrameIndex.x - 1)
         {
-            // std::println("found map");
             holdCount = currentAnimation->frameHolds.at(currentFrameIndex.x - 1) - 1;
             lastHoldIndex = currentFrameIndex.x - 1;
             currentFrameIndex.x--;
         }
         else if (holdCount)
         {
-            // std::println("hold not 0");
             currentFrameIndex.x--;
             holdCount--;
         }
 
+        // check whether to loop or finish
         if (currentFrameIndex.x >= currentAnimation->Length)
         {
             if (currentAnimation->loop)
             {
-                // std::println("pop loop");
                 currentFrameIndex.x = currentAnimation->startFrame.x;
                 lastHoldIndex = -1;
             }
             else
             {
-                // std::println("pop not loop");
                 currentFrameIndex.x = currentAnimation->Length - 1;
-                finished = true;
                 lastHoldIndex = -1;
+                finished = true;
+
+                currentAnimation = nullptr;
             }
         }
     }
-
-    // std::println("{}", currentFrameIndex.x);
-};
+}; // Update()
