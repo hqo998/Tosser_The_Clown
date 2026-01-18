@@ -36,7 +36,7 @@ private:
     std::unique_ptr<AnimationSequence> currentAnimation = nullptr;
 
     float timer{0};
-    frameIndex currentFrameIndex;
+    frameIndex currentFrameIndex {0, 0};
     bool finished{};
 
     int holdCount{};
