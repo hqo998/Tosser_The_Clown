@@ -82,12 +82,26 @@ public:
 #pragma endregion
 
 #pragma region AIM_GUIDER
+
+struct GuideOffsets
+{
+    Vector2 point;
+    float rotation;
+};
+
 // Use a list of sprites that all share an aim guide texture to generate points and render them according to an offset.
 class AimGuide
 {
     std::vector<Sprite> guidePoints;
 
     Texture2D texture;
+
+public:
+    AimGuide();
+
+    void Hide();
+    void Show();
+    void Update();
 };
 
 
