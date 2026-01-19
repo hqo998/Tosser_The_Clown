@@ -97,10 +97,10 @@ class AimGuide
     Texture2D texture;
 
 public:
+    bool hidden { false };
+
     AimGuide();
 
-    void Hide();
-    void Show();
     void Draw();
     void Update();
 };

@@ -5,7 +5,7 @@
 AimGuide::AimGuide()
 {
     texture = LoadTexture("resources/tmp/AimGuider_Sprite.png");
-    SetTextureWrap(texture, TEXTURE_WRAP_CLAMP);
+    SetTextureWrap(texture, TEXTURE_WRAP_REPEAT);
 
     for (int i = 0; i < 5; i++)
     {
@@ -18,24 +18,10 @@ AimGuide::AimGuide()
     }
 };
 
-void AimGuide::Hide()
-{
-    for (auto point : guidePoints)
-    {
-        point.SetFrame({1, 0});
-    }
-};
-
-void AimGuide::Show()
-{
-    for (auto point : guidePoints)
-    {
-        point.SetFrame({0, 0});
-    }
-};
-
 void AimGuide::Draw()
 {
+    if (hidden) return;
+
     int i = 0;
     for (auto point : guidePoints)
     {

@@ -47,7 +47,7 @@ int main()
     }
 
     AimGuide guide;
-    guide.Hide();
+    guide.hidden = false;
 
     while (!WindowShouldClose())
     {
