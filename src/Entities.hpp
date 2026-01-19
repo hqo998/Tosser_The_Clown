@@ -3,6 +3,34 @@
 #include "AnimationPlayer/AnimationPlayer.hpp"
 #include "Sprite/Sprite.hpp"
 
+#pragma region AIM_GUIDER
+
+struct GuideOffsets
+{
+    Vector2 point;
+    float rotation;
+};
+
+// Use a list of sprites that all share an aim guide texture to generate points and render them according to an offset.
+class AimGuide
+{
+    std::vector<Sprite> guidePoints;
+
+    Texture2D texture;
+
+    Vector2 origin;
+
+public:
+    bool hidden { false };
+
+    AimGuide();
+
+    void Draw();
+    void Update(GuideOffsets offset);
+};
+
+#pragma endregion
+
 
 #pragma region CLOWN
 enum class ClownState
@@ -25,10 +53,12 @@ class Clown : public Sprite
     ClownState currentState {};
 
     void SwitchState(ClownState toState);
-    // void LoadAnims();
 
+    AimGuide aimGuide;
 public:
     Clown();
+
+    void Draw();
 
     void Update();
 
@@ -69,7 +99,7 @@ class CrowdManager
 {
     std::vector<std::unique_ptr<CrowdPerson>> people;
     Texture2D texture;
-    // maybe decouple each person from having its own animation player
+
 public:
     CrowdManager();
     ~CrowdManager();
@@ -81,31 +111,3 @@ public:
 
 #pragma endregion
 
-#pragma region AIM_GUIDER
-
-struct GuideOffsets
-{
-    Vector2 point;
-    float rotation;
-};
-
-// Use a list of sprites that all share an aim guide texture to generate points and render them according to an offset.
-class AimGuide
-{
-    std::vector<Sprite> guidePoints;
-
-    Texture2D texture;
-
-    Vector2 origin;
-
-public:
-    bool hidden { false };
-
-    AimGuide();
-
-    void Draw();
-    void Update(GuideOffsets offsets);
-};
-
-
-#pragma endregion

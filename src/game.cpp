@@ -46,8 +46,7 @@ int main()
         crowd.AddPerson();
     }
 
-    AimGuide guide;
-    guide.hidden = false;
+
 
     while (!WindowShouldClose())
     {
@@ -65,7 +64,6 @@ int main()
 
             stage.Draw();
             clown.Draw();
-            guide.Draw();
         }
         app.GetCanvas().EndTextureDraw();
         #pragma endregion

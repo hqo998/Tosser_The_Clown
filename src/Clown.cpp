@@ -39,13 +39,6 @@ AnimationSequence clownAniTalk = {
 };
 #pragma endregion
 
-// void Clown::LoadAnims()
-// {
-//     AnimPlayer.AddAnimation(ClownAniThrow);
-//     AnimPlayer.AddAnimation(clownAniAim);
-//     AnimPlayer.AddAnimation(clownAniTalk);
-// };
-
 Clown::Clown()  : Sprite("resources/tmp/TosserSpritesheetTest.png", 9, 2)
 {
     Vector2 relativeScale = GetRelativeScale();
@@ -56,13 +49,14 @@ Clown::Clown()  : Sprite("resources/tmp/TosserSpritesheetTest.png", 9, 2)
     position = {(app.GetCanvas().canvasWidth / 2), app.GetCanvas().canvasHeight}; // need to remove hardcoding and base it off canvas dimensions
     SetOrigin(O_BOTTOM_CENTER);
 
-    // LoadAnims();
+    aimGuide.hidden = true;
 
     SwitchState(ClownState::IDLE);
 };
 
 void Clown::Update()
 {
+
     switch (currentState)
     {
     case ClownState::IDLE:
@@ -73,12 +67,17 @@ void Clown::Update()
         break;
 
     case ClownState::AIM:
-        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
         {
-            SwitchState(ClownState::THROW);
-        }
-        break;
+            GuideOffsets offset { app.GetCanvas().GetMousePositionCanvas(), 0};
 
+            aimGuide.Update(offset);
+
+            if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+            {
+                SwitchState(ClownState::THROW);
+            }
+        break;
+        }
     case ClownState::THROW:
         if (AnimPlayer.Finished())
         {
@@ -101,12 +100,24 @@ void Clown::SwitchState(ClownState toState)
         AnimPlayer.PlayAnimation(clownAniTalk);
         break;
     case ClownState::AIM:
+        aimGuide.hidden = false;
         AnimPlayer.PlayAnimation(clownAniAim);
         break;
     case ClownState::THROW:
+        aimGuide.hidden = true;
         AnimPlayer.PlayAnimation(ClownAniThrow);
         break;
     }
 };
 
+void Clown::Draw()
+{
+    // Call the base class draw method
+    Sprite::Draw();
 
+    // Draw the aim guide if it's not hidden
+    if (!aimGuide.hidden)
+    {
+        aimGuide.Draw();
+    }
+};
