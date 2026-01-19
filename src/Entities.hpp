@@ -96,6 +96,8 @@ class AimGuide
 
     Texture2D texture;
 
+    Vector2 origin;
+
 public:
     bool hidden { false };
 

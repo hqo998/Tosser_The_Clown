@@ -135,7 +135,7 @@ Vector2 Sprite::GetDestOrigin(Rectangle rect)
     return {rect.width * Origin.x, rect.height * Origin.y};
 };
 
-void Sprite::Draw()
+void Sprite::Draw(float rotation)
 {
     Rectangle destRect = GetDestRect();
     Vector2 destOrigin = GetDestOrigin(destRect);
@@ -145,7 +145,7 @@ void Sprite::Draw()
     DrawTexturePro(texture,
                    {sourceRect.x, sourceRect.y, flip ? -sourceRect.width : sourceRect.width, sourceRect.height},
                    destRect,
-                   destOrigin, 0.f, WHITE);
+                   destOrigin, rotation, WHITE);
 };
 
 void Sprite::DrawRect(float thickness)

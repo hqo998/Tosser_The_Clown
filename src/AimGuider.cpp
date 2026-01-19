@@ -16,7 +16,7 @@ AimGuide::AimGuide()
     {
         point.SetOrigin(O_CENTER);
     }
-};
+}; // AimGuide
 
 void AimGuide::Draw()
 {
@@ -28,9 +28,9 @@ void AimGuide::Draw()
         point.Draw();
         i++;
     }
-};
+}; // Draw
 
 void AimGuide::Update()
 {
 
-};
+}; // Update

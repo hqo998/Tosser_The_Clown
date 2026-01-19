@@ -57,7 +57,7 @@ public:
     void SetOrigin(Origins origin_value);
     void SetFrame(int frameIndexX, int frameIndexY);
     void SetFrame(frameIndex);
-    void Draw();
+    void Draw(float rotation = 0);
     void DrawRect(float thickness);
     bool IsOnScreen();
 
