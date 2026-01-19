@@ -25,12 +25,18 @@ void AimGuide::Draw()
     int i = 0;
     for (auto point : guidePoints)
     {
-        point.Draw();
+        point.Draw(point.rotation);
         i++;
     }
 }; // Draw
 
 void AimGuide::Update()
 {
-
+    int i = 0;
+    for (auto point : guidePoints)
+    {
+        point.position;
+        point.rotation;
+        i++;
+    }
 }; // Update
