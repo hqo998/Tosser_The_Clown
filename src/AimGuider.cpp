@@ -30,7 +30,7 @@ void AimGuide::Draw()
     }
 }; // Draw
 
-void AimGuide::Update()
+void AimGuide::Update(GuideOffsets offsets)
 {
     int i = 0;
     for (auto point : guidePoints)

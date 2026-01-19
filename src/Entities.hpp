@@ -104,7 +104,7 @@ public:
     AimGuide();
 
     void Draw();
-    void Update();
+    void Update(GuideOffsets offsets);
 };
 
 
