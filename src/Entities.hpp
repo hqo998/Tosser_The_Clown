@@ -101,6 +101,7 @@ public:
 
     void Hide();
     void Show();
+    void Draw();
     void Update();
 };
 

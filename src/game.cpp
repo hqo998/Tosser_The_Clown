@@ -46,6 +46,9 @@ int main()
         crowd.AddPerson();
     }
 
+    AimGuide guide;
+    guide.Hide();
+
     while (!WindowShouldClose())
     {
         app.GetCanvas().SetDisplaySize(static_cast<float>(GetScreenWidth()),
@@ -62,6 +65,7 @@ int main()
 
             stage.Draw();
             clown.Draw();
+            guide.Draw();
         }
         app.GetCanvas().EndTextureDraw();
         #pragma endregion
