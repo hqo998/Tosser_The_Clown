@@ -59,6 +59,8 @@ void AimGuide::Update(Vector2 offset)
 {
     float angle = calculateAngleFromPoint(offset, origin) - 90;
 
+
+    // TO DO: use raymath vector to calculate vector length and vector direction to calculate magnitude and offset further.
     std::println("{}", angle);
 
     int i = 0;
@@ -69,7 +71,7 @@ void AimGuide::Update(Vector2 offset)
             point.position = origin;
         }
 
-        
+
 
         point.rotation = angle*(i+1);
 
