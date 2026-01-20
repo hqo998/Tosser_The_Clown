@@ -4,7 +4,17 @@
 
 #include "raymath.h"
 
+
 #include <print>
+#include <cmath>
+
+const double pi = 3.14159265358979323846;
+
+float calculateAngleFromPoint(Vector2 point, Vector2 mouse)
+{
+    float radians = std::atan2((point.y - mouse.y), (point.x - mouse.x));
+    return radians * (180 / static_cast<float>(pi));
+}
 
 AimGuide::AimGuide()
 {
@@ -45,15 +55,29 @@ void AimGuide::Draw()
 
 
 
-void AimGuide::Update(GuideOffsets offset)
+void AimGuide::Update(Vector2 offset)
 {
+    float angle = calculateAngleFromPoint(offset, origin) - 90;
+
+    std::println("{}", angle);
+
     int i = 0;
     for (auto &point : guidePoints)
     {
+        if (i == 0)
+        {
+            point.position = origin;
+        }
+
+        
+
+        point.rotation = angle*(i+1);
+
         // needs to change so that is basised of last points rotation then forward that vector a set offset amount.
-        point.position = origin - (offset.point - origin) * static_cast<float>(i);
-        // point.position = origin;
-        point.rotation = offset.rotation;
+        point.position = origin - (offset - origin) * static_cast<float>(i);
+
         i++;
     }
 }; // Update
+
+

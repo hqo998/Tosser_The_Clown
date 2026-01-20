@@ -71,7 +71,7 @@ void Clown::Update()
 
     case ClownState::AIM:
     {
-        GuideOffsets offset{app.GetCanvas().GetMousePositionCanvas(), 0};
+        Vector2 offset {app.GetCanvas().GetMousePositionCanvas()};
 
         aimGuide.Update(offset);
 
