@@ -23,7 +23,7 @@ int main()
 
     // Application &app = Application::Get(); // application singleton for window info and other systems in future
 
-    app.StartUp(1920, 1000);
+    app.StartUp(1920, 1080);
 
 
     #pragma endregion

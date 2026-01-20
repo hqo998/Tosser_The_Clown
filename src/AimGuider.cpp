@@ -2,6 +2,8 @@
 
 #include "Entities.hpp"
 
+#include "raymath.h"
+
 #include <print>
 
 AimGuide::AimGuide()
@@ -29,7 +31,8 @@ void AimGuide::Refresh()
 
 void AimGuide::Draw()
 {
-    if (hidden) return;
+    if (hidden)
+        return;
 
     int i = 0;
     for (auto &point : guidePoints)
@@ -40,12 +43,16 @@ void AimGuide::Draw()
     }
 }; // Draw
 
+
+
 void AimGuide::Update(GuideOffsets offset)
 {
     int i = 0;
     for (auto &point : guidePoints)
     {
-        point.position = offset.point;
+        // needs to change so that is basised of last points rotation then forward that vector a set offset amount.
+        point.position = origin - (offset.point - origin) * static_cast<float>(i);
+        // point.position = origin;
         point.rotation = offset.rotation;
         i++;
     }
