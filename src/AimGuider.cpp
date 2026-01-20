@@ -2,6 +2,8 @@
 
 #include "Entities.hpp"
 
+#include <print>
+
 AimGuide::AimGuide()
 {
     texture = LoadTexture("resources/tmp/AimGuider_Sprite.png");
@@ -12,20 +14,28 @@ AimGuide::AimGuide()
         guidePoints.push_back({texture, 2, 1});
     }
 
-    for (auto point : guidePoints)
+}; // AimGuide
+
+void AimGuide::Refresh()
+{
+    for (auto &point : guidePoints)
     {
         point.SetOrigin(O_CENTER);
+        point.scale = {scale, scale};
+        point.position = origin;
+        // std::println("pos: ({},{}) scale: {}", point.position.x, point.position.y, point.scale.x);
     }
-}; // AimGuide
+};
 
 void AimGuide::Draw()
 {
     if (hidden) return;
 
     int i = 0;
-    for (auto point : guidePoints)
+    for (auto &point : guidePoints)
     {
         point.Draw(point.rotation);
+        // std::println("pos: ({},{}) scale: {}", point.position.x, point.position.y, point.scale.x);
         i++;
     }
 }; // Draw
@@ -33,7 +43,7 @@ void AimGuide::Draw()
 void AimGuide::Update(GuideOffsets offset)
 {
     int i = 0;
-    for (auto point : guidePoints)
+    for (auto &point : guidePoints)
     {
         point.position = offset.point;
         point.rotation = offset.rotation;

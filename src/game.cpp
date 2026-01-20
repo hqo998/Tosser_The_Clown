@@ -19,7 +19,7 @@ int main()
 
     SetWindowMinSize(300, 300);
     // ToggleBorderlessWindowed();
-    // SetTargetFPS(60);
+    SetTargetFPS(60);
 
     // Application &app = Application::Get(); // application singleton for window info and other systems in future
 

@@ -18,15 +18,19 @@ class AimGuide
 
     Texture2D texture;
 
-    Vector2 origin;
+    
 
 public:
+    Vector2 origin {};
+
+    float scale  {};
     bool hidden { false };
 
     AimGuide();
 
     void Draw();
     void Update(GuideOffsets offset);
+    void Refresh();
 };
 
 #pragma endregion

@@ -50,6 +50,9 @@ Clown::Clown()  : Sprite("resources/tmp/TosserSpritesheetTest.png", 9, 2)
     SetOrigin(O_BOTTOM_CENTER);
 
     aimGuide.hidden = true;
+    aimGuide.scale = uniform_scale * .1f;
+    aimGuide.origin = position;
+    aimGuide.Refresh();
 
     SwitchState(ClownState::IDLE);
 };
