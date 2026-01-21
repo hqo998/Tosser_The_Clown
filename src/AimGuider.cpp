@@ -54,7 +54,7 @@ void AimGuide::Draw()
     {
 
         point.Draw(radiansToDegrees(point.rotation * static_cast<float>(pi)));
-        std::println("rot: {}, pos: ({},{}) scale: {}", radiansToDegrees(point.rotation), point.position.x, point.position.y, point.scale.x);
+        // std::println("rot: {}, pos: ({},{}) scale: {}", radiansToDegrees(point.rotation), point.position.x, point.position.y, point.scale.x);
         if (i == 4)
             point.SetFrame({1, 2});
         i++;
@@ -65,23 +65,13 @@ void AimGuide::Draw()
 void AimGuide::Update(Vector2 mouse)
 {
     // return radians of (x,y flipped) points arctan2 then asdds an offset for rotating 180 degree
-    float angle = -calculateAngleFromPoint({mouse.y, mouse.x}, {origin.y, origin.x});
-
-    // angle = angle*.3f;
-
-    float offetLength = Vector2Length(mouse - origin);
-    Vector2 offsetNormalised = Vector2Normalize(mouse - origin);
-
-    Vector2 rotatedOffset = Vector2Rotate(mouse - origin, angle);
-
-    // TO DO: use raymath vector to calculate vector length and vector direction to calculate magnitude and offset further.
-    std::println("{}, {}", angle, offetLength);
+    float angleRadians = -calculateAngleFromPoint({mouse.y, mouse.x}, {origin.y, origin.x});
 
     int i = 0;
+
     for (auto &point : guidePoints)
     {
-
-        point.rotation = ((angle / static_cast<float>(pi) / 4) * (i + 1));
+        point.rotation = ((angleRadians / static_cast<float>(pi) / 4) * (i + 1));
 
         if (i == 0)
         {
@@ -93,7 +83,6 @@ void AimGuide::Update(Vector2 mouse)
         point.position = guidePoints.at(i - 1).position - Vector2Rotate(mouse - origin, point.rotation);
 
         // std::println("[{}], {}, {}", i, point.position.x, point.position.y);
-
         i++;
     }
 }; // Update
