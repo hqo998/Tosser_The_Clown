@@ -125,7 +125,7 @@ void CrowdManager::AddPerson()
 
     Vector2 minDistance = {app.GetCanvas().canvasWidth / 10, app.GetCanvas().canvasHeight / 3};
 
-    int max_attempts = 1000;
+    const int max_attempts = 1000;
     int attempt = 1;
 
     bool validPos = false;
@@ -163,8 +163,8 @@ bool CrowdManager::CheckIfCloseToAnother(const Vector2 pos, const Vector2 minimu
 {
     for (const auto& person : people)
     {
-        float dx = person->position.x - pos.x;
-        float dy = person->position.y - pos.y;
+        const float dx { person->position.x - pos.x };
+        const float dy { person->position.y - pos.y };
         // if (std::abs(dx) < minimum.x) return true;
         if (std::abs(dx) < minimum.x && std::abs(dy) < minimum.y) return true;
     }

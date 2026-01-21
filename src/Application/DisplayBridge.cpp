@@ -65,8 +65,7 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
 
     Vector2 originTarget = {0.0f, 0.0f}; // centre of canvas
 
-    float widthScaledToHeight{0};
-    float heightScaledToWidth{0};
+
 
     switch (mode)
     {
@@ -85,7 +84,8 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
                          (canvasHeight)};
         break;
     case bridgeMode::SCALE_MAINTAIN_SCREEN:
-        heightScaledToWidth = (displayWidth / canvasWidth) * canvasHeight;
+        {
+        float heightScaledToWidth = (displayWidth / canvasWidth) * canvasHeight;
 
         originTarget = {displayWidth / 2, heightScaledToWidth / 2};
 
@@ -94,9 +94,11 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
                          heightScaledToWidth};
         if (heightScaledToWidth < displayHeight)
             break;
+        }
     case bridgeMode::SCALE_HEIGHT_CENTRE_TO_SCREEN:
     default:
-        widthScaledToHeight = (displayHeight / canvasHeight) * canvasWidth;
+        {
+        float widthScaledToHeight = (displayHeight / canvasHeight) * canvasWidth;
 
         originTarget = {widthScaledToHeight / 2, displayHeight / 2};
 
@@ -104,6 +106,7 @@ void DisplayBridge::DrawBridge(bridgeMode mode)
                          widthScaledToHeight,
                          displayHeight};
         break;
+        }
     }
 
     DrawTexturePro(target.texture, sourceRecTarget, destRecTarget, originTarget, 0.0f, WHITE);
