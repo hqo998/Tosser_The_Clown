@@ -4,6 +4,7 @@
 #include "Entities.hpp"
 
 #include <algorithm>
+#include <print>
 
 #pragma region CROWD_ANIMATIONS
 
@@ -31,7 +32,7 @@ AnimationSequence CrowdThrow =
 
 #pragma region CROWD_PERSON
 
-CrowdPerson::CrowdPerson(Texture2D sharedTex) : Sprite(sharedTex, 13, 2)
+CrowdPerson::CrowdPerson(const Texture2D sharedTex) : Sprite(sharedTex, 13, 2)
 {
     Vector2 relativeScale = GetRelativeScale();
     float adjustedScale = (relativeScale.x < relativeScale.y) ? relativeScale.x : relativeScale.y;
@@ -114,16 +115,58 @@ void CrowdManager::Draw()
     }
 }; // Draw
 
+
+
 void CrowdManager::AddPerson()
 {
-    people.push_back(std::make_unique<CrowdPerson>(texture));
+    
 
-    // people positions
-    float randX = GetRandomValue(10, 90)/100.f;
-    float posX = randX*app.GetCanvas().canvasWidth;
+    Vector2 position { 0, 0 };
+
+    Vector2 minDistance = {app.GetCanvas().canvasWidth / 10, app.GetCanvas().canvasHeight / 3};
+
+    int max_attempts = 1000;
+    int attempt = 1;
+
+    bool validPos = false;
+    while (!validPos && attempt < max_attempts)
+    {
+        position = GeneratePostion();
+        if ( !CheckIfCloseToAnother(position, minDistance) )
+        {
+            validPos = true;
+            break;
+        }
+        attempt++;
+    }
+    if (validPos)
+    {
+        people.push_back(std::make_unique<CrowdPerson>(texture));
+        people.back()->position = position;
+    }
+}; // AddPerson
+
+Vector2 CrowdManager::GeneratePostion()
+{
+        // people positions
+    const float randX = GetRandomValue(10, 90)/100.f;
+    const float posX = randX*app.GetCanvas().canvasWidth;
 
     // (rand * height - half the height) + 1/3 of the way down the canvas
-    // float randY = GetRandomValue(10, 90)/100.f;
-    float posY = /* .3f*(randY*app.GetCanvas().canvasHeight - (app.GetCanvas().canvasHeight / 2)) + */ (app.GetCanvas().canvasHeight * .4f);
-    people.back()->position = {posX, posY};
-}; // AddPerson
+    const float randY = GetRandomValue(10, 90)/100.f;
+    const float posY =  .2f*(randY*app.GetCanvas().canvasHeight - (app.GetCanvas().canvasHeight / 2)) + (app.GetCanvas().canvasHeight * .4f);
+
+    return {posX, posY};
+}; // GeneratePosition
+
+bool CrowdManager::CheckIfCloseToAnother(const Vector2 pos, const Vector2 minimum)
+{
+    for (const auto& person : people)
+    {
+        float dx = person->position.x - pos.x;
+        float dy = person->position.y - pos.y;
+        // if (std::abs(dx) < minimum.x) return true;
+        if (std::abs(dx) < minimum.x && std::abs(dy) < minimum.y) return true;
+    }
+    return false;
+}; // checkIfClose

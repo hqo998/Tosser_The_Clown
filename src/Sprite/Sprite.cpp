@@ -20,18 +20,18 @@ Sprite::Sprite(const std::string &texturePath, int spriteFramesX, int spriteFram
     LoadSprite(texturePath);
 };
 
-Sprite::Sprite(Texture2D& sharedTexture)
+Sprite::Sprite(const Texture2D& sharedTexture)
 {
     LoadSprite(sharedTexture);
 };
 
-Sprite::Sprite(Texture2D& sharedTexture, int spriteFramesX, int spriteFramesY)
+Sprite::Sprite(const Texture2D& sharedTexture, int spriteFramesX, int spriteFramesY)
     : spriteFramesX{spriteFramesX}, spriteFramesY{spriteFramesY}
 {
     LoadSprite(sharedTexture);
 };
 
-void Sprite::LoadSprite(Texture2D& sharedTexture)
+void Sprite::LoadSprite(const Texture2D& sharedTexture)
 {
     texture = sharedTexture;
 

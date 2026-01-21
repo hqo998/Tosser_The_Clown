@@ -41,7 +41,7 @@ int main()
 
     Clown clown;
     CrowdManager crowd;
-    for (int i {}; i < 10; i++)
+    for (int i {}; i < 5; i++)
     {
         crowd.AddPerson();
     }

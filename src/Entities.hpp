@@ -83,7 +83,7 @@ class CrowdPerson : public Sprite
     void SwitchState(CrowdState toState);
     // void LoadAnims();
 public:
-    CrowdPerson(Texture2D sharedTex);
+    CrowdPerson(const Texture2D sharedTex);
 
     void Update();
 
@@ -97,7 +97,8 @@ class CrowdManager
 {
     std::vector<std::unique_ptr<CrowdPerson>> people;
     Texture2D texture;
-
+    bool CheckIfCloseToAnother(const Vector2 pos, const Vector2 minimum);
+    Vector2 GeneratePostion();
 public:
     CrowdManager();
     ~CrowdManager();
