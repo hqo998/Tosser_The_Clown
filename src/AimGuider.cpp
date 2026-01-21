@@ -67,6 +67,11 @@ void AimGuide::Update(Vector2 mouse)
     // return radians of (x,y flipped) points arctan2 then asdds an offset for rotating 180 degree
     float angleRadians = -calculateAngleFromPoint({mouse.y, mouse.x}, {origin.y, origin.x});
 
+    float spriteSize = guidePoints.at(0).GetBounds().width;
+
+    Vector2 clampedMouse = Vector2ClampValue(mouse - origin, spriteSize/2, spriteSize*2);
+
+    std::println("spriteSize: {} \n normal: {}, {} \n clamped: {}, {}", spriteSize, mouse.x, mouse.y, clampedMouse.x, clampedMouse.y);
     int i = 0;
 
     for (auto &point : guidePoints)
@@ -80,7 +85,7 @@ void AimGuide::Update(Vector2 mouse)
             continue;
         }
 
-        point.position = guidePoints.at(i - 1).position - Vector2Rotate(mouse - origin, point.rotation);
+        point.position = guidePoints.at(i - 1).position - Vector2Rotate(clampedMouse, point.rotation);
 
         // std::println("[{}], {}, {}", i, point.position.x, point.position.y);
         i++;
