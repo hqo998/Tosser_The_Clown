@@ -4,7 +4,6 @@
 
 #include "raymath.h"
 
-
 #include <print>
 #include <cmath>
 
@@ -12,7 +11,11 @@ const double pi = 3.14159265358979323846;
 
 float calculateAngleFromPoint(Vector2 point, Vector2 mouse)
 {
-    float radians = std::atan2((point.y - mouse.y), (point.x - mouse.x));
+    return std::atan2((point.y - mouse.y), (point.x - mouse.x));
+}
+
+float radiansToDegrees(float radians)
+{
     return radians * (180 / static_cast<float>(pi));
 }
 
@@ -37,6 +40,8 @@ void AimGuide::Refresh()
         point.position = origin;
         // std::println("pos: ({},{}) scale: {}", point.position.x, point.position.y, point.scale.x);
     }
+
+    guidePoints.back().scale *= 2.5f;
 };
 
 void AimGuide::Draw()
@@ -47,39 +52,48 @@ void AimGuide::Draw()
     int i = 0;
     for (auto &point : guidePoints)
     {
-        point.Draw(point.rotation);
-        // std::println("pos: ({},{}) scale: {}", point.position.x, point.position.y, point.scale.x);
+
+        point.Draw(radiansToDegrees(point.rotation * static_cast<float>(pi)));
+        std::println("rot: {}, pos: ({},{}) scale: {}", radiansToDegrees(point.rotation), point.position.x, point.position.y, point.scale.x);
+        if (i == 4)
+            point.SetFrame({1, 2});
         i++;
     }
 }; // Draw
 
 
-
-void AimGuide::Update(Vector2 offset)
+void AimGuide::Update(Vector2 mouse)
 {
-    float angle = calculateAngleFromPoint(offset, origin) - 90;
+    // return radians of (x,y flipped) points arctan2 then asdds an offset for rotating 180 degree
+    float angle = -calculateAngleFromPoint({mouse.y, mouse.x}, {origin.y, origin.x});
 
+    // angle = angle*.3f;
+
+    float offetLength = Vector2Length(mouse - origin);
+    Vector2 offsetNormalised = Vector2Normalize(mouse - origin);
+
+    Vector2 rotatedOffset = Vector2Rotate(mouse - origin, angle);
 
     // TO DO: use raymath vector to calculate vector length and vector direction to calculate magnitude and offset further.
-    std::println("{}", angle);
+    std::println("{}, {}", angle, offetLength);
 
     int i = 0;
     for (auto &point : guidePoints)
     {
+
+        point.rotation = ((angle / static_cast<float>(pi) / 4) * (i + 1));
+
         if (i == 0)
         {
             point.position = origin;
+            i++;
+            continue;
         }
 
+        point.position = guidePoints.at(i - 1).position - Vector2Rotate(mouse - origin, point.rotation);
 
-
-        point.rotation = angle*(i+1);
-
-        // needs to change so that is basised of last points rotation then forward that vector a set offset amount.
-        point.position = origin - (offset - origin) * static_cast<float>(i);
+        // std::println("[{}], {}, {}", i, point.position.x, point.position.y);
 
         i++;
     }
 }; // Update
-
-
