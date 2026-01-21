@@ -21,8 +21,6 @@ int main()
     // ToggleBorderlessWindowed();
     SetTargetFPS(60);
 
-    // Application &app = Application::Get(); // application singleton for window info and other systems in future
-
     app.StartUp(1920, 1080);
 
 
