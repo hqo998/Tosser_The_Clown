@@ -2,7 +2,7 @@
 #include <string>
 
 #include "raylib.h"
-
+#include "../GameObject.hpp"
 #include "../AnimationPlayer/AnimationPlayer.hpp"
 
 enum Origins {
@@ -17,7 +17,10 @@ enum Origins {
     O_CENTER
 };
 
-class Sprite
+// TODO: You'll want to remove all instances of Update() and Draw() etc.
+// Your App and GameInstance should not be aware of custom classes like Sprite. (Code smell and coupling)
+
+class Sprite : public GameObject
 {
 private:
     // variables
@@ -39,6 +42,7 @@ private:
     void LoadSprite(const std::string& texturePath, int spriteFramesX, int spriteFramesY);
     void LoadSprite(const Texture2D& sharedTexture);
 public:
+    // TODO: remove these and use GameObject::transform instead 
     // variables
     Vector2 position {0, 0};
     float rotation {0};

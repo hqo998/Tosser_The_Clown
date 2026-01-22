@@ -1,9 +1,8 @@
 #pragma once
 
+#include "../GameObject.hpp"
 #include <raylib.h>
 #include <memory>
-
-
 
 #pragma region DISPLAY_BRIDGE
 enum class bridgeMode
@@ -98,6 +97,7 @@ private:
 
 
     std::unique_ptr<DisplayBridge> canvas = nullptr;
+    GameInstance gameInstance{};
 
     GameInstance m_GameInstance;
 
@@ -110,6 +110,7 @@ public:
         return onlyApplication;
     }
 
+    // NOTE: Also you don't need inline here
     inline void StartUp(const float width, const float height)
     {
         canvas = std::make_unique<DisplayBridge>(width, height);
@@ -120,11 +121,11 @@ public:
         return *canvas;
     }
 
-    [[nodiscard]] inline GameInstance& GetGameInstance()
+    [[nodiscard]] GameInstance& GetGameInstance()
     {
-        return m_GameInstance;
+        return gameInstance;
     }
-
+    
 }; // Application
 
 // The line `inline Application& app = Application::Get();` is creating a global variable named `app` that is initialized with a reference to the `Application` singleton instance obtained by calling the static `Get()` method of the `Application` class.
