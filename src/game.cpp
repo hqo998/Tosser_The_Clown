@@ -1,5 +1,6 @@
 #include "raylib.h"
 
+#include "GameObject.hpp"
 #include "Application/Application.hpp"
 #include "Sprite/Sprite.hpp"
 #include "Entities.hpp"
@@ -26,24 +27,8 @@ int main()
 
     #pragma endregion
 
-    const float &canvasWidth = app.GetCanvas().canvasWidth;
-    const float &canvasHeight = app.GetCanvas().canvasHeight;
 
-    Sprite stage {"resources/tmp/Stage.png"};
-    stage.SetOrigin(O_BOTTOM_CENTER);
-    stage.position = {canvasWidth/2, canvasHeight};
-    Vector2 relativeScale = stage.GetRelativeScale();
-    float adjustedScale = (relativeScale.x<relativeScale.y) ? relativeScale.x : relativeScale.y;
-    float uniform_scale = 1.f * adjustedScale;
-    stage.scale = {uniform_scale, uniform_scale};
-
-    Clown clown;
-    CrowdManager crowd;
-    for (int i {}; i < 5; i++)
-    {
-        crowd.AddPerson();
-    }
-
+    game.Init();
 
 
     while (!WindowShouldClose())
@@ -51,17 +36,14 @@ int main()
         app.GetCanvas().SetDisplaySize(static_cast<float>(GetScreenWidth()),
                                         static_cast<float>(GetScreenHeight()));
 
-        clown.Update();
-        crowd.Update();
+        game.Update();
 
         #pragma region CANVAS_RENDER
         app.GetCanvas().BeginTextureDraw();
         {
+            game.Draw();
             ClearBackground(LIGHTGRAY);
-            crowd.Draw();
 
-            stage.Draw();
-            clown.Draw();
         }
         app.GetCanvas().EndTextureDraw();
         #pragma endregion

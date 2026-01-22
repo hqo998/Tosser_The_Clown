@@ -135,6 +135,11 @@ Vector2 Sprite::GetDestOrigin(const Rectangle rect)
     return {rect.width * Origin.x, rect.height * Origin.y};
 };
 
+void Sprite::Draw()
+{
+    Draw(0.f);
+}
+
 void Sprite::Draw(const float spriteRotation)
 {
     Rectangle destRect = GetDestRect();

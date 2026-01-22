@@ -93,12 +93,13 @@ public:
 }; // CrowdPerson
 
 // The `CrowdManager` class is managing a collection of `CrowdPerson` objects. This class acts as a manager for handling and controlling a group of `CrowdPerson` instances.
-class CrowdManager
+class CrowdManager : public GameObject
 {
     std::vector<std::unique_ptr<CrowdPerson>> people;
     Texture2D texture;
     bool CheckIfCloseToAnother(const Vector2 pos, const Vector2 minimum);
     Vector2 GeneratePostion();
+
 public:
     CrowdManager();
     ~CrowdManager();

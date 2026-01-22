@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../GameObject.hpp"
+
 #include <raylib.h>
 #include <memory>
 
@@ -55,33 +56,8 @@ private:
 }; // DisplayBridge
 #pragma endregion
 
-#pragma region GAME_INSTANCE
-
-enum class EGameState
-{
-    MENU,
-    PLAY,
-    PAUSE
-};
-
-class GameInstance
-{
-private:
-    EGameState CurrentState;
-
-public:
-    void RequestPlay();
-
-    void RequestPause();
-
-    void RequestMenu();
-};
-
-#pragma endregion
-
 #pragma region APPLICATION
 // Application singleton so that it can access the same info from anywhere.
-
 
 class Application
 {
@@ -97,9 +73,9 @@ private:
 
 
     std::unique_ptr<DisplayBridge> canvas = nullptr;
-    GameInstance gameInstance{};
 
-    GameInstance m_GameInstance;
+
+    GameInstance gameInstance{};
 
 public:
     // Always returns the same Application object.

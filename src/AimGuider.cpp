@@ -71,7 +71,7 @@ void AimGuide::Update(Vector2 mouse)
 
     Vector2 clampedMouse = Vector2ClampValue(mouse - origin, spriteSize/2, spriteSize*2);
 
-    std::println("spriteSize: {} \n normal: {}, {} \n clamped: {}, {}", spriteSize, mouse.x, mouse.y, clampedMouse.x, clampedMouse.y);
+    // std::println("spriteSize: {} \n normal: {}, {} \n clamped: {}, {}", spriteSize, mouse.x, mouse.y, clampedMouse.x, clampedMouse.y);
     int i = 0;
 
     for (auto &point : guidePoints)

@@ -9,24 +9,22 @@
 #pragma region CROWD_ANIMATIONS
 
 AnimationSequence CrowdIdle =
-{
+    {
         .name = "Idle",
         .startFrame = {0, 0},
         .Length = 3,
         .speedFPS = 5,
         .loop = false,
-        .frameHolds = {}
-};
+        .frameHolds = {}};
 
 AnimationSequence CrowdThrow =
-{
+    {
         .name = "Throw",
         .startFrame = {0, 1},
         .Length = 13,
         .speedFPS = 5,
         .loop = false,
-        .frameHolds = {}
-};
+        .frameHolds = {}};
 
 #pragma endregion
 
@@ -40,7 +38,6 @@ CrowdPerson::CrowdPerson(const Texture2D sharedTex) : Sprite(sharedTex, 13, 2)
 
     scale = {uniform_scale, uniform_scale};
     SetOrigin(O_CENTER);
-
 
     SwitchState(CrowdState::IDLE);
 }; // CrowdPerson
@@ -84,7 +81,6 @@ void CrowdPerson::SwitchState(CrowdState toState)
 
 #pragma region CROWD_MANAGER
 
-
 CrowdManager::CrowdManager()
 {
     texture = LoadTexture("resources/CrowdThrowers/CrowdMemberBASE_spritesheet.png");
@@ -105,9 +101,8 @@ void CrowdManager::Update()
 
 void CrowdManager::Draw()
 {
-    std::sort(people.begin(), people.end(), [](const auto& a, const auto& b) {
-        return a->position.y < b->position.y;
-    });
+    std::sort(people.begin(), people.end(), [](const auto &a, const auto &b)
+              { return a->position.y < b->position.y; });
 
     for (std::unique_ptr<CrowdPerson> &person : people)
     {
@@ -115,13 +110,10 @@ void CrowdManager::Draw()
     }
 }; // Draw
 
-
-
 void CrowdManager::AddPerson()
 {
-    
 
-    Vector2 position { 0, 0 };
+    Vector2 position{0, 0};
 
     Vector2 minDistance = {app.GetCanvas().canvasWidth / 10, app.GetCanvas().canvasHeight / 3};
 
@@ -132,7 +124,7 @@ void CrowdManager::AddPerson()
     while (!validPos && attempt < max_attempts)
     {
         position = GeneratePostion();
-        if ( !CheckIfCloseToAnother(position, minDistance) )
+        if (!CheckIfCloseToAnother(position, minDistance))
         {
             validPos = true;
             break;
@@ -148,25 +140,26 @@ void CrowdManager::AddPerson()
 
 Vector2 CrowdManager::GeneratePostion()
 {
-        // people positions
-    const float randX = GetRandomValue(10, 90)/100.f;
-    const float posX = randX*app.GetCanvas().canvasWidth;
+    // people positions
+    const float randX = GetRandomValue(10, 90) / 100.f;
+    const float posX = randX * app.GetCanvas().canvasWidth;
 
     // (rand * height - half the height) + 1/3 of the way down the canvas
-    const float randY = GetRandomValue(10, 90)/100.f;
-    const float posY =  .2f*(randY*app.GetCanvas().canvasHeight - (app.GetCanvas().canvasHeight / 2)) + (app.GetCanvas().canvasHeight * .4f);
+    const float randY = GetRandomValue(10, 90) / 100.f;
+    const float posY = .2f * (randY * app.GetCanvas().canvasHeight - (app.GetCanvas().canvasHeight / 2)) + (app.GetCanvas().canvasHeight * .4f);
 
     return {posX, posY};
 }; // GeneratePosition
 
 bool CrowdManager::CheckIfCloseToAnother(const Vector2 pos, const Vector2 minimum)
 {
-    for (const auto& person : people)
+    for (const auto &person : people)
     {
-        const float dx { person->position.x - pos.x };
-        const float dy { person->position.y - pos.y };
+        const float dx{person->position.x - pos.x};
+        const float dy{person->position.y - pos.y};
         // if (std::abs(dx) < minimum.x) return true;
-        if (std::abs(dx) < minimum.x && std::abs(dy) < minimum.y) return true;
+        if (std::abs(dx) < minimum.x && std::abs(dy) < minimum.y)
+            return true;
     }
     return false;
 }; // checkIfClose
