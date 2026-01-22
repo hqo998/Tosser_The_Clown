@@ -36,13 +36,13 @@ CrowdPerson::CrowdPerson(const Texture2D sharedTex) : Sprite(sharedTex, 13, 2)
 {
     Vector2 relativeScale = GetRelativeScale();
     float adjustedScale = (relativeScale.x < relativeScale.y) ? relativeScale.x : relativeScale.y;
-    float uniform_scale = .3f * adjustedScale;
+    float uniform_scale = .4f * adjustedScale;
 
     scale = {uniform_scale, uniform_scale};
     SetOrigin(O_CENTER);
 
 
-    SwitchState(CrowdState::THROW);
+    SwitchState(CrowdState::IDLE);
 }; // CrowdPerson
 
 void CrowdPerson::Update()
