@@ -59,6 +59,14 @@ private:
 
 #pragma region APPLICATION
 // Application singleton so that it can access the same info from anywhere.
+
+enum class AppState
+{
+    MENU,
+    PLAY,
+    PAUSE
+};
+
 class Application
 {
     // constructors
@@ -73,6 +81,10 @@ class Application
 
     std::unique_ptr<DisplayBridge> canvas = nullptr;
 
+    AppState currentState;
+    void SwitchState(AppState toState);
+    void CheckState();
+
 public:
     // Always returns the same Application object.
     static Application& Get()
@@ -82,7 +94,7 @@ public:
         return onlyApplication;
     }
 
-    inline void StartUp(float width, float height)
+    inline void StartUp(const float width, const float height)
     {
         canvas = std::make_unique<DisplayBridge>(width, height);
     }
@@ -91,6 +103,9 @@ public:
     {
         return *canvas;
     }
+
+
+    
 }; // Application
 
 // The line `inline Application& app = Application::Get();` is creating a global variable named `app` that is initialized with a reference to the `Application` singleton instance obtained by calling the static `Get()` method of the `Application` class.

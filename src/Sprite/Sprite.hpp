@@ -32,8 +32,8 @@ private:
     // functions
 
     [[nodiscard]] Rectangle GetDestRect();
-    [[nodiscard]] Vector2 GetDestOrigin(Rectangle rect);
-    [[nodiscard]] Rectangle DestPro(Rectangle dest, Vector2 origin);
+    [[nodiscard]] Vector2 GetDestOrigin(const Rectangle rect);
+    [[nodiscard]] Rectangle DestPro(Rectangle dest, const  Vector2 origin);
 
     void LoadSprite(const std::string& texturePath);
     void LoadSprite(const std::string& texturePath, int spriteFramesX, int spriteFramesY);
@@ -52,15 +52,15 @@ public:
     Sprite(const std::string& texturePath, int spriteFramesX, int spriteFramesY);
     Sprite(const Texture2D& sharedTexture);
     Sprite(const Texture2D& sharedTexture, int spriteFramesX, int spriteFramesY);
-    ~Sprite();
+    virtual ~Sprite();
     // void LoadSprite(const std::string& texturePath);
     // void LoadSprite(const std::string& texturePath, int spriteFramesX, int spriteFramesY);
     void SetOrigin(Origins origin_value);
     void SetFrame(int frameIndexX, int frameIndexY);
     void SetFrame(frameIndex);
-    void Draw(float rotation = 0);
+    void Draw(const float rotation = 0);
     void DrawRect(float thickness);
-    bool IsOnScreen();
+    [[nodiscard]] bool IsOnScreen();
 
     [[nodiscard]] Vector2 GetSpriteSourceSize();
 

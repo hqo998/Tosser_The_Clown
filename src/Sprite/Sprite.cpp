@@ -118,7 +118,7 @@ void Sprite::SetOrigin(Origins origin_value)
     }
 };
 
-Rectangle Sprite::DestPro(Rectangle dest, Vector2 origin)
+Rectangle Sprite::DestPro(Rectangle dest, const Vector2 origin)
 {
     dest.x = dest.x - origin.x;
     dest.y = dest.y - origin.y;
@@ -130,12 +130,12 @@ Rectangle Sprite::GetDestRect()
     return {position.x, position.y, sourceRect.width * scale.x, sourceRect.height * scale.y};
 };
 
-Vector2 Sprite::GetDestOrigin(Rectangle rect)
+Vector2 Sprite::GetDestOrigin(const Rectangle rect)
 {
     return {rect.width * Origin.x, rect.height * Origin.y};
 };
 
-void Sprite::Draw(float spriteRotation)
+void Sprite::Draw(const float spriteRotation)
 {
     Rectangle destRect = GetDestRect();
     Vector2 destOrigin = GetDestOrigin(destRect);
