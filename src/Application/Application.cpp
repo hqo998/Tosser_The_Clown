@@ -1,28 +1,28 @@
 #include "Application.hpp"
 
-void Application::CheckState()
+void GameInstance::RequestMenu()
 {
-    switch (currentState)
+    if (CurrentState != EGameState::MENU)
     {
-    case AppState::MENU:
-        break;
-    case AppState::PLAY:
-        break;
-    case AppState::PAUSE:
-        break;
+        CurrentState = EGameState::MENU;
+        // Whatever you want to do to switch to main menu
     }
 }
 
-void Application::SwitchState(AppState toState)
+void GameInstance::RequestPause()
 {
-    currentState = toState;
-    switch (toState)
+    if (CurrentState != EGameState::PLAY)
     {
-    case AppState::MENU:
-        break;
-    case AppState::PLAY:
-        break;
-    case AppState::PAUSE:
-        break;
+        CurrentState = EGameState::PLAY;
+        // Whatever you want to do to start playing
+    }
+}
+
+void GameInstance::RequestPlay()
+{
+    if (CurrentState != EGameState::PLAY)
+    {
+        CurrentState = EGameState::PLAY;
+        // Whatever you want to do to start playing
     }
 }

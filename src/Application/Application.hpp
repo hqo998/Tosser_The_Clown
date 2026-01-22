@@ -55,19 +55,37 @@ private:
 }; // DisplayBridge
 #pragma endregion
 
+#pragma region GAME_INSTANCE
 
-#pragma region APPLICATION
-// Application singleton so that it can access the same info from anywhere.
-
-enum class AppState
+enum class EGameState
 {
     MENU,
     PLAY,
     PAUSE
 };
 
+class GameInstance
+{
+private:
+    EGameState CurrentState;
+
+public:
+    void RequestPlay();
+
+    void RequestPause();
+
+    void RequestMenu();
+};
+
+#pragma endregion
+
+#pragma region APPLICATION
+// Application singleton so that it can access the same info from anywhere.
+
+
 class Application
 {
+private:
     // constructors
     Application() = default;
 
@@ -81,9 +99,7 @@ class Application
     std::unique_ptr<DisplayBridge> canvas = nullptr;
     GameInstance gameInstance{};
 
-    AppState currentState;
-    void SwitchState(AppState toState);
-    void CheckState();
+    GameInstance m_GameInstance;
 
 public:
     // Always returns the same Application object.
@@ -114,6 +130,8 @@ public:
 
 // The line `inline Application& app = Application::Get();` is creating a global variable named `app` that is initialized with a reference to the `Application` singleton instance obtained by calling the static `Get()` method of the `Application` class.
 inline Application& app = Application::Get();
+inline GameInstance& game = Application::Get().GetGameInstance();
 
 #pragma endregion // Application
+
 
