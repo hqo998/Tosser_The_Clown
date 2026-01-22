@@ -1,9 +1,8 @@
 #pragma once
 
+#include "../GameObject.hpp"
 #include <raylib.h>
 #include <memory>
-
-
 
 #pragma region DISPLAY_BRIDGE
 enum class bridgeMode
@@ -80,6 +79,7 @@ class Application
 
 
     std::unique_ptr<DisplayBridge> canvas = nullptr;
+    GameInstance gameInstance{};
 
     AppState currentState;
     void SwitchState(AppState toState);
@@ -94,6 +94,7 @@ public:
         return onlyApplication;
     }
 
+    // NOTE: Also you don't need inline here
     inline void StartUp(const float width, const float height)
     {
         canvas = std::make_unique<DisplayBridge>(width, height);
@@ -104,7 +105,10 @@ public:
         return *canvas;
     }
 
-
+    [[nodiscard]] GameInstance& GetGameInstance()
+    {
+        return gameInstance;
+    }
     
 }; // Application
 
