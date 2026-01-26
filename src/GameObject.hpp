@@ -22,6 +22,7 @@ enum class GameState
     GAMEOVER
 }; // GameState
 
+// This `GameInstance` class is responsible for managing the game state and game objects within the game.
 class GameInstance
 {
     GameState currentState{GameState::PLAYING};

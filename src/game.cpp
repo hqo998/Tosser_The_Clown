@@ -4,6 +4,7 @@
 #include "Application/Application.hpp"
 #include "Sprite/Sprite.hpp"
 #include "Entities.hpp"
+#include "Cursor.hpp"
 
 #include <print>
 #include <chrono>
@@ -15,12 +16,13 @@ int main()
     int screenWidth{1280};
     int screenHeight{720};
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT | FLAG_WINDOW_HIGHDPI);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT | FLAG_WINDOW_HIGHDPI | FLAG_VSYNC_HINT);
     InitWindow(screenWidth, screenHeight, "Tosser the Clown");
 
     SetWindowMinSize(300, 300);
     // ToggleBorderlessWindowed();
-    SetTargetFPS(60);
+    // SetTargetFPS(200);
+    
 
     app.StartUp(1920, 1080);
 
@@ -29,6 +31,7 @@ int main()
 
 
     game.Init();
+    Cursor cursor;
 
 
     while (!WindowShouldClose())
@@ -37,6 +40,7 @@ int main()
                                         static_cast<float>(GetScreenHeight()));
 
         game.Update();
+        cursor.Update();
 
         #pragma region CANVAS_RENDER
         app.GetCanvas().BeginTextureDraw();
@@ -54,6 +58,7 @@ int main()
             ClearBackground(BLACK); // Background if aspect ratios don't match
 
             app.GetCanvas().DrawBridge(bridgeMode::SCALE_MAINTAIN_SCREEN);
+            cursor.Draw();
 
             DrawFPS(10, 10);
         }
