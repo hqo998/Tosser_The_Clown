@@ -3,7 +3,7 @@
 
 #include <print>
 
-Cursor::Cursor() : Sprite("resources/tmp/cursor.png", 1, 1)
+Cursor::Cursor() : Sprite("resources/tmp/cursor.png", 2, 1)
 {
     HideCursor();
 }
@@ -27,6 +27,6 @@ void Cursor::Update()
 
 void Cursor::Draw()
 {
-    std::println("drawing cursor");
+    // std::println("drawing cursor");
     Sprite::Draw();
 }
